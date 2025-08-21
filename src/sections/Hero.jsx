@@ -10,22 +10,31 @@ const Hero = () => {
     return (
         <section className="relative w-full min-h-screen flex flex-col justify-start px-5 md:px-20 py-10 overflow-hidden">
 
+            {/* Top Light Beam */}
+            <div className="absolute top-0 left-0 w-full h-[2px] z-20 overflow-hidden">
+                {/* White base beam */}
+                <div className="w-full h-full bg-white opacity-40 beam-glow"></div>
+
+                {/* Comet / Rocket Light */}
+                <div className="absolute top-0 left-[-5%] w-2 h-full rounded-full comet-glow animate-comet">
+                    {/* Tail gradient */}
+                    <div className="absolute top-0 left-[-50px] w-[50px] h-full bg-gradient-to-r from-white/80 to-white/0 rounded-full"></div>
+                </div>
+            </div>
+
             {/* DarkVeil Background */}
-            <div className="absolute inset-0 z-10 h-[150px]">
-                <DarkVeil />
+            <div className="absolute inset-0 z-10">
+                <div style={{ width: '100%', height: '150px', position: 'relative', opacity: 0.3 }}>
+                    <DarkVeil />
+                </div>
             </div>
 
             {/* Layer 1: Big Text + Image */}
             <div className="flex flex-col md:flex-row items-start md:items-center gap-10 md:gap-16 w-full relative z-10">
-
                 {/* Left Text */}
-                <div className="flex-1 flex flex-col transform transition-all duration-500 md:ml-[205px] ml-0">
-                    <h1 className="-mt-9 text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-tight tracking-[1px]" style={{ fontFamily: 'Anton, sans-serif' }}>
-                        ALBEDO AND
-                    </h1>
-                    <h1 className="-mt-9 text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-tight tracking-[1px]" style={{ fontFamily: 'Anton, sans-serif' }}>
-                        THE CLOUD
-                    </h1>
+                <div className="flex-1 flex flex-col transform transition-all duration-500" style={{ marginLeft: '205px' }}>
+                    <h1 className="-mt-9 text-8xl md:text-9xl font-bold leading-tight tracking-[1px] font-anton">ALBEDO AND</h1>
+                    <h1 className="-mt-9 text-8xl md:text-9xl font-bold leading-tight tracking-[1px] font-anton">THE CLOUD</h1>
                 </div>
 
                 {/* Image */}
@@ -33,24 +42,34 @@ const Hero = () => {
                     <img
                         src="/src/public/hero_eye.png"
                         alt="Hero"
-                        className="w-full sm:w-3/4 md:w-auto max-w-[400px] transform scale-75 md:scale-100 md:translate-x-7 md:translate-y-7 select-none pointer-events-none transition-transform duration-500"
+                        className="w-full md:w-auto max-w-[400px] transform scale-75 md:scale-100 md:translate-x-30 md:translate-y-30 select-none pointer-events-none transition-transform duration-500"
                         draggable={false}
                     />
                 </div>
             </div>
 
             {/* Layer 2: Paragraph */}
-            <div className="max-w-full sm:max-w-xl md:max-w-2xl mt-4 md:-mt-16 mx-auto md:mx-0 text-justify p-6 md:p-8 rounded-md relative z-10 bg-black/50 transition-all duration-500">
-                <p className="text-base sm:text-base md:text-lg lg:text-lg">
+            <div className="max-w-2xl ml-40 text-justify p-8 rounded-md relative z-10">
+                <p className="text-base md:text-lg">
                     This world was never forged in balance. Some are born to greatness, others to shadows. Yet exceptions exist: warmth may touch winter, a bud may bloom on a withered branch, a lone star may pierce the night. Even in disparity, brilliance can arise where least expected.
                 </p>
             </div>
 
             {/* Layer 3: Button */}
-            <div className="mt-6 relative z-10 flex justify-center md:justify-start">
+            <div className="ml-50 mt-5 relative z-10">
                 <Button onClick={handleHeroButtonClick}>Get Started</Button>
             </div>
 
+            {/* Animation keyframes */}
+            <style jsx>{`
+                @keyframes slide-right {
+                    0% { left: -20%; }
+                    100% { left: 100%; }
+                }
+                .animate-slide-right {
+                    animation: slide-right 1.5s linear infinite;
+                }
+            `}</style>
         </section>
     );
 };

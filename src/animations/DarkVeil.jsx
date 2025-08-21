@@ -20,8 +20,8 @@ float auroraLayer(vec2 uv, float offset){
     float speed = 1.5 + offset * 0.2;
     float y = uv.y;
     y += sin(uv.x * 4.0 + uTime * speed + offset*1.5) * 0.18;
-    y += sin(uv.x * 6.0 + uTime * speed * 1.3 + offset*2.1) * 0.08;
-    y += cos(uv.x * 9.0 + uTime * speed * 0.9 + offset*0.5) * 0.1;
+    y += sin(uv.x * 6.0 + uTime * speed * 1.3 + offset*2.1) * 0.07;
+    y += cos(uv.x * 9.0 + uTime * speed * 0.9 + offset*0.5) * 0.08;
     y += sin(uv.x * 12.0 + uTime * speed * 1.1 + offset*3.0) * 0.05;
     return clamp(y, 0.0, 1.0);
 }
