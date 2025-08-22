@@ -23,11 +23,20 @@ const Hero = () => {
             </div>
 
             {/* DarkVeil Background */}
-            <div className="absolute inset-0 z-10">
-                <div style={{ width: '100%', height: '150px', position: 'relative', opacity: 0.3 }}>
-                    <DarkVeil />
+            <div className="absolute inset-0 z-0">
+                <div style={{ width: '100%', height: '200px', position: 'relative', opacity: 1 }}>
+                    <DarkVeil
+                        topColor={[0.23, 0.06, 0.56]}      // Top gradient color
+                        bottomColor={[0.39, 0.12, 0.90]}   // Bottom gradient color
+
+                        amplitude={[0.05, 0.08, 0.1, 0.12]} // Wave height for each layer
+                        wavelength={[4.0, 6.0, 9.0, 12.0]} // Wave frequency for each layer
+                        speed={[1.5, 1.8, 1.2, 2.0]}        // Speed for each layer
+                        phase={[0.0, 1.5, 3.0, 4.5]}        // Phase offset for each layer
+                    />
                 </div>
             </div>
+
 
             {/* Layer 1: Big Text + Image */}
             <div className="flex flex-col md:flex-row items-start md:items-center gap-10 md:gap-16 w-full relative z-10">
