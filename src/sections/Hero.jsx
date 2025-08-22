@@ -23,13 +23,25 @@ const Hero = () => {
             </div>
 
             {/* DarkVeil Background */}
-            <div className="absolute inset-0 z-0">
-                <div style={{ position: 'relative', opacity: 0.5 }}>
-                    <DarkVeil
-                    />
+            <div
+                className="absolute inset-0 z-0 transform translate-x-0 translate-y-[-20px]"
+                style={{
+                    WebkitMaskImage:
+                        "linear-gradient(to right, transparent, black 30%, black 20%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
+                    WebkitMaskComposite: "destination-in",
+                    maskImage:
+                        "linear-gradient(to right, transparent, black 30%, black 20%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
+                    maskComposite: "intersect", // for Firefox
+                    WebkitMaskRepeat: "no-repeat",
+                    WebkitMaskSize: "100% 100%",
+                    maskRepeat: "no-repeat",
+                    maskSize: "100% 100%",
+                }}
+            >
+                <div style={{ height: 200, position: "relative", opacity: 1 }}>
+                    <DarkVeil />
                 </div>
             </div>
-
 
             {/* Layer 1: Big Text + Image */}
             <div className="flex flex-col md:flex-row items-start md:items-center gap-10 md:gap-16 w-full relative z-10">

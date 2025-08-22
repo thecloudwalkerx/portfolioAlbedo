@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
 import { Renderer, Program, Mesh, Triangle, Vec2 } from "ogl";
-// import { useControls, folder } from "leva"; // commented out, slider disabled
 
 const vertex = `
 attribute vec2 position;
@@ -17,97 +16,49 @@ uniform float uTime;
 uniform vec3 uColor1;
 uniform vec3 uColor2;
 
-uniform float uVerticalOffset;
+// Simple value noise
+float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
 
-uniform float uAmplitude1;
-uniform float uAmplitude2;
-uniform float uAmplitude3;
-uniform float uAmplitude4;
-
-uniform float uWavelength1;
-uniform float uWavelength2;
-uniform float uWavelength3;
-uniform float uWavelength4;
-
-uniform float uSpeed1;
-uniform float uSpeed2;
-uniform float uSpeed3;
-uniform float uSpeed4;
-
-uniform float uPhase1;
-uniform float uPhase2;
-uniform float uPhase3;
-uniform float uPhase4;
-
-uniform float uBlur1;
-uniform float uBlur2;
-uniform float uBlur3;
-uniform float uBlur4;
-
-float auroraLayer(vec2 uv, float amplitude, float wavelength, float speed, float phase, float blur){
-    float y = uv.y + uVerticalOffset + sin(uv.x * wavelength + uTime * speed + phase) * amplitude;
-    y = clamp(y, 0.0, 1.0);
-    float alpha = smoothstep(0.0, blur, y);
-    return alpha;
+float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    vec4 h = vec4(
+        hash(i),
+        hash(i + vec2(1.0, 0.0)),
+        hash(i + vec2(0.0, 1.0)),
+        hash(i + vec2(1.0, 1.0))
+    );
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(mix(h.x, h.y, u.x), mix(h.z, h.w, u.x), u.y);
 }
 
 void main() {
     vec2 uv = gl_FragCoord.xy / uResolution.xy;
     uv.x *= uResolution.x / uResolution.y;
 
-    float layer1 = auroraLayer(uv, uAmplitude1, uWavelength1, uSpeed1, uPhase1, uBlur1);
-    float layer2 = auroraLayer(uv, uAmplitude2, uWavelength2, uSpeed2, uPhase2, uBlur2);
-    float layer3 = auroraLayer(uv, uAmplitude3, uWavelength3, uSpeed3, uPhase3, uBlur3);
-    float layer4 = auroraLayer(uv, uAmplitude4, uWavelength4, uSpeed4, uPhase4, uBlur4);
+    // Combined wave + noise for silk-like movement
+    float wave = sin(uv.x * 8.0 + uTime * 0.8) * 0.25 +
+                 sin(uv.y * 10.0 + uTime * 1.2) * 0.2 +
+                 noise(uv * 4.0 + uTime * 0.25) * 0.6;
 
-    float alpha = layer1*0.35 + layer2*0.3 + layer3*0.25 + layer4*0.2;
-    vec3 color = mix(uColor1, uColor2, uv.y) * alpha;
+    float mask = smoothstep(0.3, 0.7, wave);
+    float light = 0.4 + 0.6 * noise(uv * 4.0 + uTime * 0.25);
 
-    gl_FragColor = vec4(color, alpha);
+    vec3 baseColor = mix(uColor1, uColor2, uv.y + sin(uv.x * 8.0 + uTime * 0.8) * 0.0625);
+    vec3 finalColor = baseColor * light;
+
+    gl_FragColor = vec4(finalColor, mask);
 }
 `;
 
 export default function DarkVeil() {
     const ref = useRef(null);
 
-    // Hardcoded values from your last settings
-    const controls = {
-        verticalOffset: -0.81,
-        topColor: "#330890",
-        bottomColor: "#6211df",
-
-        amplitude1: 0,
-        wavelength1: 20,
-        speed1: 0.4,
-        phase1: 0,
-        blur1: 0.12,
-
-        amplitude2: 0.04,
-        wavelength2: 3,
-        speed2: 0.4,
-        phase2: 0,
-        blur2: 0.15,
-
-        amplitude3: 0.07,
-        wavelength3: 4,
-        speed3: 0.5,
-        phase3: 0,
-        blur3: 0.09,
-
-        amplitude4: 0.07,
-        wavelength4: 7.2,
-        speed4: 0.9,
-        phase4: 0,
-        blur4: 0.14,
-    };
-
     const hexToRgb = (hex) => {
         const h = hex.replace("#", "");
-        return [
-            parseInt(h.substring(0, 2), 16) / 255,
-            parseInt(h.substring(2, 4), 16) / 255,
-            parseInt(h.substring(4, 6), 16) / 255,
-        ];
+        return Array.from([0, 2, 4], i => parseInt(h.substring(i, i + 2), 16) / 255);
     };
 
     useEffect(() => {
@@ -129,29 +80,8 @@ export default function DarkVeil() {
             uniforms: {
                 uTime: { value: 0 },
                 uResolution: { value: new Vec2() },
-                uVerticalOffset: { value: controls.verticalOffset },
-                uColor1: { value: hexToRgb(controls.topColor) },
-                uColor2: { value: hexToRgb(controls.bottomColor) },
-                uAmplitude1: { value: controls.amplitude1 },
-                uAmplitude2: { value: controls.amplitude2 },
-                uAmplitude3: { value: controls.amplitude3 },
-                uAmplitude4: { value: controls.amplitude4 },
-                uWavelength1: { value: controls.wavelength1 },
-                uWavelength2: { value: controls.wavelength2 },
-                uWavelength3: { value: controls.wavelength3 },
-                uWavelength4: { value: controls.wavelength4 },
-                uSpeed1: { value: controls.speed1 },
-                uSpeed2: { value: controls.speed2 },
-                uSpeed3: { value: controls.speed3 },
-                uSpeed4: { value: controls.speed4 },
-                uPhase1: { value: controls.phase1 },
-                uPhase2: { value: controls.phase2 },
-                uPhase3: { value: controls.phase3 },
-                uPhase4: { value: controls.phase4 },
-                uBlur1: { value: controls.blur1 },
-                uBlur2: { value: controls.blur2 },
-                uBlur3: { value: controls.blur3 },
-                uBlur4: { value: controls.blur4 },
+                uColor1: { value: hexToRgb("#330890") },
+                uColor2: { value: hexToRgb("#6211df") },
             },
         });
 
