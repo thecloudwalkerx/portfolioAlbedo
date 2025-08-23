@@ -1,91 +1,155 @@
-import React from "react";
-import Button from "../components/Button";
-import DarkVeil from '../animations/DarkVeil.jsx';
+import Button from "/src/components/Button.jsx";
+import RotatingText from "/src/animations/RotatingText.jsx";
+import SplitText from "/src/animations/SplitText.jsx";
+import LogoLoop from "/src/animations/LogoLoop.jsx";
 
-const Hero = () => {
-    const handleHeroButtonClick = () => {
-        console.log("Hero button clicked!");
-    };
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+} from "react-icons/si";
 
-    return (
-        <section className="relative w-full min-h-screen flex flex-col justify-start px-5 md:px-20 py-10 overflow-hidden">
+const techLogos = [
+  { node: <SiReact />, title: "React", href: "https://react.dev" },
+  { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
+  {
+    node: <SiTypescript />,
+    title: "TypeScript",
+    href: "https://www.typescriptlang.org",
+  },
+  {
+    node: <SiTailwindcss />,
+    title: "Tailwind CSS",
+    href: "https://tailwindcss.com",
+  },
+];
 
-            {/* Top Light Beam */}
-            <div className="absolute top-0 left-0 w-full h-[2px] z-20 overflow-hidden">
-                {/* White base beam */}
-                <div className="w-full h-full bg-white opacity-40 beam-glow"></div>
+export default function Hero() {
+  const handleHeroButtonClick = () => console.log("Hero button clicked!");
+  const handleAnimationComplete = () =>
+    console.log("All letters have animated!");
 
-                {/* Comet / Rocket Light */}
-                <div className="absolute top-0 left-[-5%] w-2 h-full rounded-full comet-glow animate-comet">
-                    {/* Tail gradient */}
-                    <div className="absolute top-0 left-[-50px] w-[50px] h-full bg-gradient-to-r from-white/80 to-white/0 rounded-full"></div>
-                </div>
-            </div>
+  return (
+    <section className="relative w-full min-h-screen text-headline overflow-hidden">
+      <div className="relative w-full h-full">
+        {/* === Left Group: Headline + RotatingText + Intro + Button === */}
+        <div className="absolute top-16 left-6 sm:top-20 sm:left-8 md:top-24 md:left-12 lg:top-32 lg:left-16 transition-all duration-500 ease-in-out">
+          {/* First Line */}
+          <h1 className="font-zing text-tiny lg:text-tiny">ALBEDO AND</h1>
 
-            {/* DarkVeil Background */}
-            <div
-                className="absolute inset-0 z-0 transform translate-x-0 translate-y-[-20px]"
-                style={{
-                    WebkitMaskImage:
-                        "linear-gradient(to right, transparent, black 30%, black 20%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
-                    WebkitMaskComposite: "destination-in",
-                    maskImage:
-                        "linear-gradient(to right, transparent, black 30%, black 20%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
-                    maskComposite: "intersect", // for Firefox
-                    WebkitMaskRepeat: "no-repeat",
-                    WebkitMaskSize: "100% 100%",
-                    maskRepeat: "no-repeat",
-                    maskSize: "100% 100%",
-                }}
-            >
-                <div style={{ height: 200, position: "relative", opacity: 1 }}>
-                    <DarkVeil />
-                </div>
-            </div>
+          {/* RotatingText Line */}
+          <h1 className="font-zing text-tiny lg:text-tiny leading-tiny mt-2 flex items-center gap-2">
+            THE
+            <RotatingText
+              texts={["CLOUD", "WALKER"]}
+              mainClassName="px-2 lg:px-3 text-headline overflow-hidden py-1 justify-center rounded-lg"
+              staggerFrom="last"
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-120%" }}
+              staggerDuration={0.015}
+              splitLevelClassName="overflow-hidden pb-1"
+              transition={{ type: "spring", damping: 50, stiffness: 400 }}
+              rotationInterval={2000}
+            />
+          </h1>
 
-            {/* Layer 1: Big Text + Image */}
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-10 md:gap-16 w-full relative z-10">
-                {/* Left Text */}
-                <div className="flex-1 flex flex-col transform transition-all duration-500" style={{ marginLeft: '205px' }}>
-                    <h1 className="-mt-9 text-8xl md:text-9xl font-bold leading-tight tracking-[1px] font-anton">ALBEDO AND</h1>
-                    <h1 className="-mt-9 text-8xl md:text-9xl font-bold leading-tight tracking-[1px] font-anton">THE CLOUD</h1>
-                </div>
+          {/* Intro Paragraph */}
+          <p className="text-sm md:text-lg max-w-md mt-4">
+            Greetings, I am Albedo. I serve as a Senior Visual Artist and a
+            Frontend Developer. Verily, I am also an aspiring Security Engineer.
+          </p>
 
-                {/* Image */}
-                <div className="flex-1 relative w-full md:w-auto min-w-[150px]">
-                    <img
-                        src="/src/public/hero_eye.png"
-                        alt="Hero"
-                        className="w-full md:w-auto max-w-[400px] transform scale-75 md:scale-100 md:translate-x-30 md:translate-y-30 select-none pointer-events-none transition-transform duration-500"
-                        draggable={false}
-                    />
-                </div>
-            </div>
+          {/* CTA Button */}
+          <div className="mt-4">
+            <Button onClick={handleHeroButtonClick}>Learn More</Button>
+          </div>
+        </div>
 
-            {/* Layer 2: Paragraph */}
-            <div className="max-w-2xl ml-40 text-justify p-8 rounded-md relative z-10">
-                <p className="text-base md:text-lg">
-                    This world was never forged in balance. Some are born to greatness, others to shadows. Yet exceptions exist: warmth may touch winter, a bud may bloom on a withered branch, a lone star may pierce the night. Even in disparity, brilliance can arise where least expected.
-                </p>
-            </div>
+        {/* === Right Group: Eye + List === */}
+        <div className="absolute top-48 right-12 sm:top-44 sm:right-8 md:top-48 md:right-10 lg:top-52 lg:right-24 z-0">
+          {/* Eye Image */}
+          <div className="w-56 lg:w-56 md:w-48 sm:w-40 scale-150 lg:scale-150 md:scale-125 sm:scale-110 relative">
+            <img src="/src/public/hero_eye.png" alt="Hero Eye" />
+          </div>
 
-            {/* Layer 3: Button */}
-            <div className="ml-50 mt-5 relative z-10">
-                <Button onClick={handleHeroButtonClick}>Get Started</Button>
-            </div>
+          {/* Role List */}
+          <ul className="absolute top-0 left-[185px] flex flex-col gap-2 min-w-[250px]">
+            <li className="ml-0">
+              <SplitText
+                text="• Security Engineer"
+                splitType="chars"
+                from={{ opacity: 0, y: 40 }}
+                to={{ opacity: 1, y: 0 }}
+                duration={1.5}
+                delay={10}
+                ease="elastic.out(0.1, 0.3)"
+                onLetterAnimationComplete={handleAnimationComplete}
+                className="inline-block"
+              />
+            </li>
+            <li className="ml-8">
+              <SplitText
+                text="• Senior Visual Artist"
+                splitType="chars"
+                from={{ opacity: 0, y: 40 }}
+                to={{ opacity: 1, y: 0 }}
+                duration={1.5}
+                delay={10}
+                ease="elastic.out(0.1, 0.3)"
+                onLetterAnimationComplete={handleAnimationComplete}
+                className="inline-block"
+              />
+            </li>
+            <li className="ml-16">
+              <SplitText
+                text="• UI/UX Designer"
+                splitType="chars"
+                from={{ opacity: 0, y: 40 }}
+                to={{ opacity: 1, y: 0 }}
+                duration={1.5}
+                delay={10}
+                ease="elastic.out(0.1, 0.3)"
+                onLetterAnimationComplete={handleAnimationComplete}
+                className="inline-block"
+              />
+            </li>
+            <li className="ml-20">
+              <SplitText
+                text="• Web Developer"
+                splitType="chars"
+                from={{ opacity: 0, y: 40 }}
+                to={{ opacity: 1, y: 0 }}
+                duration={1.5}
+                delay={10}
+                ease="elastic.out(0.1, 0.3)"
+                onLetterAnimationComplete={handleAnimationComplete}
+                className="inline-block"
+              />
+            </li>
+          </ul>
+        </div>
 
-            {/* Animation keyframes */}
-            <style jsx>{`
-                @keyframes slide-right {
-                    0% { left: -20%; }
-                    100% { left: 100%; }
-                }
-                .animate-slide-right {
-                    animation: slide-right 1.5s linear infinite;
-                }
-            `}</style>
-        </section>
-    );
-};
-
-export default Hero;
+        {/* === Logo Loop === */}
+        <div className="absolute top-[180px] left-0 w-full flex justify-center sm:top-[140px] md:top-[160px] lg:top-[180px]">
+          <div className="overflow-hidden relative h-24 md:h-32">
+            <LogoLoop
+              width="100%"
+              logos={techLogos}
+              speed={35}
+              direction="left"
+              logoHeight={48}
+              gap={120}
+              pauseOnHover
+              scaleOnHover
+              fadeOut
+              fadeOutColor="#2e0b70"
+              ariaLabel="Technology partners"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
