@@ -2,7 +2,7 @@ import React from "react";
 import Hero from "./sections/Hero.jsx";
 import DarkVeil from "./animations/DarkVeil.jsx";
 import Navbar from "./components/Navbar.jsx";
-import HeroParallax, { products } from "./sections/ProductShowcase.jsx";
+import HeroParallax, { products } from "./sections/HeroParallax.jsx";
 
 const App = () => {
   return (

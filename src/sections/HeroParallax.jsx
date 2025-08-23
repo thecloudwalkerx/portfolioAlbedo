@@ -1,33 +1,38 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-// Utility function
+// ========================
+// Utility
+// ========================
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-// HeroParallax component
-export default function ProductShowcase({ products }) {
-  const firstRow = products.slice(0, 5);
-  const secondRow = products.slice(5, 10);
-  const thirdRow = products.slice(10, 15);
+// ========================
+// HeroParallax
+// ========================
+export default function HeroParallax({ products }) {
   const ref = useRef(null);
 
+  // --- Scroll Progress
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
+  // --- Spring Config
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
+  // --- Animations
   const translateX = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, 1000]),
     springConfig,
   );
+
   const translateXReverse = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, -1000]),
     springConfig,
@@ -37,22 +42,25 @@ export default function ProductShowcase({ products }) {
     useTransform(scrollYProgress, [0, 0.2], [15, 0]),
     springConfig,
   );
+
   const rotateZ = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [20, 0]),
     springConfig,
   );
+
   const translateY = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
     springConfig,
   );
+
   const opacity = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
     springConfig,
   );
 
-  // === HEADER FOLLOW SETTINGS ===
-  const headerFollowFactor = 2.4; // tweak this value to adjust floating
-  const headerMaxTranslate = 650; // maximum Y offset for header before stopping
+  // --- Header floating
+  const headerFollowFactor = 2.4;
+  const headerMaxTranslate = 650;
 
   const headerTranslateY = useSpring(
     useTransform(
@@ -63,15 +71,24 @@ export default function ProductShowcase({ products }) {
     { stiffness: 300, damping: 30 },
   );
 
+  // --- Split product rows
+  const firstRow = products.slice(0, 5);
+  const secondRow = products.slice(5, 10);
+  const thirdRow = products.slice(10, 15);
+
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-40 overflow-hidden antialiased relative flex flex-col [perspective:1000px] [transform-style:preserve-3d]"
+      className="relative flex flex-col h-[300vh] py-40 overflow-hidden antialiased
+                 [perspective:1000px] [transform-style:preserve-3d]"
     >
       {/* Top blur overlay */}
-      <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-white/90 to-transparent pointer-events-none z-30 dark:from-black/40"></div>
+      <div
+        className="absolute top-0 left-0 w-full h-40 pointer-events-none z-30
+                      bg-gradient-to-b from-white/90 to-transparent dark:from-black/80"
+      />
 
-      {/* Header with floating effect */}
+      {/* Floating Header */}
       <motion.div
         style={{ translateY: headerTranslateY }}
         className="relative z-20"
@@ -79,38 +96,33 @@ export default function ProductShowcase({ products }) {
         <Header />
       </motion.div>
 
-      {/* Product rows */}
+      {/* Product Rows */}
       <motion.div
         style={{ rotateX, rotateZ, translateY, opacity }}
         className="relative z-10"
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
-          {firstRow.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateX}
-              key={product.title}
-            />
+        {/* Row 1 */}
+        <motion.div className="flex flex-row-reverse gap-20 mb-20">
+          {firstRow.map((p) => (
+            <ProductCard key={p.title} product={p} translate={translateX} />
           ))}
         </motion.div>
 
-        <motion.div className="flex flex-row mb-20 space-x-20">
-          {secondRow.map((product) => (
+        {/* Row 2 */}
+        <motion.div className="flex flex-row gap-20 mb-20">
+          {secondRow.map((p) => (
             <ProductCard
-              product={product}
+              key={p.title}
+              product={p}
               translate={translateXReverse}
-              key={product.title}
             />
           ))}
         </motion.div>
 
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20">
-          {thirdRow.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateX}
-              key={product.title}
-            />
+        {/* Row 3 */}
+        <motion.div className="flex flex-row-reverse gap-20">
+          {thirdRow.map((p) => (
+            <ProductCard key={p.title} product={p} translate={translateX} />
           ))}
         </motion.div>
       </motion.div>
@@ -118,14 +130,16 @@ export default function ProductShowcase({ products }) {
   );
 }
 
-// Header component
+// ========================
+// Header
+// ========================
 export function Header() {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
+    <div className="relative w-full max-w-7xl mx-auto px-4 py-20 md:py-40">
       <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
         The Ultimate <br /> development studio
       </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
+      <p className="max-w-2xl mt-8 text-base md:text-xl dark:text-neutral-200">
         We build beautiful products with the latest technologies and frameworks.
         We are a team of passionate developers and designers that love to build
         amazing products.
@@ -134,32 +148,46 @@ export function Header() {
   );
 }
 
-// ProductCard component
+// ========================
+// ProductCard
+// ========================
 export function ProductCard({ product, translate }) {
   return (
     <motion.div
       style={{ x: translate }}
       whileHover={{ y: -20 }}
-      className="group/product h-96 w-[30rem] relative shrink-0"
+      className="relative shrink-0 w-[30rem] h-96 group/product"
     >
       <a href={product.link} className="block group-hover/product:shadow-2xl">
         <img
           src={product.thumbnail}
-          height="600"
-          width="600"
-          className="object-cover object-left-top absolute h-full w-full inset-0"
           alt={product.title}
+          width={600}
+          height={600}
+          className="absolute inset-0 object-cover object-left-top w-full h-full"
         />
       </a>
-      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
-      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
+
+      {/* Overlay */}
+      <div
+        className="absolute inset-0 w-full h-full opacity-0
+                      group-hover/product:opacity-80 bg-black pointer-events-none"
+      />
+
+      {/* Title */}
+      <h2
+        className="absolute bottom-4 left-4 text-white opacity-0
+                     group-hover/product:opacity-100"
+      >
         {product.title}
       </h2>
     </motion.div>
   );
 }
 
-// Example products data
+// ========================
+// Example Products
+// ========================
 export const products = [
   {
     title: "Moonbeam",
