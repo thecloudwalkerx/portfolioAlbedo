@@ -140,11 +140,11 @@ export function Header() {
     <div className="relative w-full max-w-7xl mx-auto px-4 py-20 md:py-40">
       <h2
         id="product-showcase-title"
-        className="text-2xl md:text-7xl font-bold dark:text-white"
+        className="text-2xl md:text-7xl font-zing text-headline"
       >
         The Ultimate <br /> development studio
       </h2>
-      <p className="max-w-2xl mt-8 text-base md:text-xl dark:text-neutral-200">
+      <p className="text-xs md:text-xs max-w-md mt-4 text-headline">
         We build beautiful products with the latest technologies and frameworks.
         We are a team of passionate developers and designers that love to build
         amazing products.

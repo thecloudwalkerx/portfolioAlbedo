@@ -178,13 +178,14 @@ export const LogoLoop = memo(
     }, [speed, direction]);
 
     const updateDimensions = useCallback(() => {
-      const sequenceWidth = seqRef.current?.getBoundingClientRect()?.width ?? 0;
+      const containerWidth = containerRef.current?.clientWidth ?? 0;
+      const sequenceWidth =
+        seqRef.current?.getBoundingClientRect?.()?.width ?? 0;
+
       if (sequenceWidth > 0) {
         setSeqWidth(Math.ceil(sequenceWidth));
-        // Instead of containerWidth, use viewport width
-        const viewportWidth = window.innerWidth;
         const copiesNeeded =
-          Math.ceil(viewportWidth / sequenceWidth) +
+          Math.ceil(containerWidth / sequenceWidth) +
           ANIMATION_CONFIG.COPY_HEADROOM;
         setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
       }
@@ -375,7 +376,7 @@ export const LogoLoop = memo(
 
         <div
           className={cx(
-            "flex min-w-full will-change-transform select-none", // changed w-max -> min-w-full
+            "flex w-max will-change-transform select-none",
             "motion-reduce:transform-none",
           )}
           ref={trackRef}

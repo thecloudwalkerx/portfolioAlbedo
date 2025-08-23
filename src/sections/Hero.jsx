@@ -2,6 +2,7 @@ import Button from "/src/components/Button.jsx";
 import RotatingText from "/src/animations/RotatingText.jsx";
 import SplitText from "/src/animations/SplitText.jsx";
 import LogoLoop from "/src/animations/LogoLoop.jsx";
+import { heroLogos } from "../constant/index.jsx";
 
 import {
   SiReact,
@@ -42,7 +43,7 @@ export default function Hero() {
           <h1 className="font-zing text-6xl lg:text-tiny">ALBEDO AND</h1>
 
           {/* RotatingText Line */}
-          <h1 className="font-zing text-6xl lg:text-tiny leading-tiny mt-2 flex items-center gap-2">
+          <h1 className="font-zing text-6xl lg:text-tiny leading-tiny mt-2 flex items-center">
             THE
             <RotatingText
               texts={["CLOUD", "WALKER"]}
@@ -74,7 +75,11 @@ export default function Hero() {
         <div className="scale-80 absolute top-100 right-40 sm:top-44 sm:right-8 md:top-150 md:right-60 lg:top-60 lg:right-110 z-0 transition-all duration-500 ease-in-out">
           {/* Eye Image */}
           <div className="w-56 lg:w-56 md:w-48 sm:w-40 scale-150 lg:scale-150 md:scale-200 sm:scale-110 relative">
-            <img src="/src/public/hero_eye.png" alt="Hero Eye" />
+            <img
+              src="/src/public/hero_eye.png"
+              alt="Hero Eye"
+              draggable="false"
+            />
           </div>
 
           {/* Role List */}
@@ -136,14 +141,14 @@ export default function Hero() {
 
         {/* === Logo Loop === */}
         <div className="absolute top-190 left-0 w-full flex justify-center sm:top-0 md:top-240 lg:top-180 transition-all duration-500 ease-in-out">
-          <div className="overflow-hidden relative h-24 md:h-32">
+          <div className="overflow-hidden relative" style={{ height: "48px" }}>
             <LogoLoop
               width="100%"
-              logos={techLogos}
+              logos={heroLogos}
               speed={35}
               direction="left"
-              logoHeight={48}
-              gap={120}
+              logoHeight={40}
+              gap={100}
               pauseOnHover
               scaleOnHover
               fadeOut
