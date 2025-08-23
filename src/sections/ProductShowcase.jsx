@@ -13,9 +13,9 @@ export function cn(...inputs) {
 }
 
 // ========================
-// HeroParallax
+// ProductShowcase Section
 // ========================
-export default function HeroParallax({ products }) {
+export default function ProductShowcase({ products }) {
   const ref = useRef(null);
 
   // --- Scroll Progress
@@ -77,15 +77,17 @@ export default function HeroParallax({ products }) {
   const thirdRow = products.slice(10, 15);
 
   return (
-    <div
+    <section
+      id="product-showcase"
       ref={ref}
       className="relative flex flex-col h-[300vh] py-40 overflow-hidden antialiased
                  [perspective:1000px] [transform-style:preserve-3d]"
+      aria-labelledby="product-showcase-title"
     >
       {/* Top blur overlay */}
       <div
         className="absolute top-0 left-0 w-full h-40 pointer-events-none z-30
-                      bg-gradient-to-b from-white/90 to-transparent dark:from-black/80"
+                      bg-gradient-to-b from-white/90 to-transparent dark:from-black/20"
       />
 
       {/* Floating Header */}
@@ -126,7 +128,7 @@ export default function HeroParallax({ products }) {
           ))}
         </motion.div>
       </motion.div>
-    </div>
+    </section>
   );
 }
 
@@ -136,9 +138,12 @@ export default function HeroParallax({ products }) {
 export function Header() {
   return (
     <div className="relative w-full max-w-7xl mx-auto px-4 py-20 md:py-40">
-      <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
+      <h2
+        id="product-showcase-title"
+        className="text-2xl md:text-7xl font-bold dark:text-white"
+      >
         The Ultimate <br /> development studio
-      </h1>
+      </h2>
       <p className="max-w-2xl mt-8 text-base md:text-xl dark:text-neutral-200">
         We build beautiful products with the latest technologies and frameworks.
         We are a team of passionate developers and designers that love to build
@@ -175,16 +180,15 @@ export function ProductCard({ product, translate }) {
       />
 
       {/* Title */}
-      <h2
+      <h3
         className="absolute bottom-4 left-4 text-white opacity-0
                      group-hover/product:opacity-100"
       >
         {product.title}
-      </h2>
+      </h3>
     </motion.div>
   );
 }
-
 // ========================
 // Example Products
 // ========================
