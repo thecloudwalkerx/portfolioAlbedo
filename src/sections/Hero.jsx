@@ -34,12 +34,12 @@ export default function Hero() {
     <section className="relative w-full min-h-screen text-headline overflow-hidden">
       <div className="relative w-full h-full">
         {/* === Left Group: Headline + RotatingText + Intro + Button === */}
-        <div className="absolute top-16 left-6 sm:top-20 sm:left-8 md:top-24 md:left-12 lg:top-32 lg:left-16 transition-all duration-500 ease-in-out">
+        <div className="absolute left-0 top-20 sm:top-20 sm:left-8 md:top-24 md:left-12 lg:top-40 lg:left-50 transition-all duration-500 ease-in-out scale-90">
           {/* First Line */}
-          <h1 className="font-zing text-tiny lg:text-tiny">ALBEDO AND</h1>
+          <h1 className="font-zing text-6xl lg:text-tiny">ALBEDO AND</h1>
 
           {/* RotatingText Line */}
-          <h1 className="font-zing text-tiny lg:text-tiny leading-tiny mt-2 flex items-center gap-2">
+          <h1 className="font-zing text-6xl lg:text-tiny leading-tiny mt-2 flex items-center gap-2">
             THE
             <RotatingText
               texts={["CLOUD", "WALKER"]}
@@ -68,14 +68,14 @@ export default function Hero() {
         </div>
 
         {/* === Right Group: Eye + List === */}
-        <div className="absolute top-48 right-12 sm:top-44 sm:right-8 md:top-48 md:right-10 lg:top-52 lg:right-24 z-0">
+        <div className="scale-80 absolute top-100 right-40 sm:top-44 sm:right-8 md:top-150 md:right-60 lg:top-60 lg:right-110 z-0 transition-all duration-500 ease-in-out">
           {/* Eye Image */}
-          <div className="w-56 lg:w-56 md:w-48 sm:w-40 scale-150 lg:scale-150 md:scale-125 sm:scale-110 relative">
+          <div className="w-56 lg:w-56 md:w-48 sm:w-40 scale-150 lg:scale-150 md:scale-200 sm:scale-110 relative">
             <img src="/src/public/hero_eye.png" alt="Hero Eye" />
           </div>
 
           {/* Role List */}
-          <ul className="absolute top-0 left-[185px] flex flex-col gap-2 min-w-[250px]">
+          <ul className="absolute top-0 md:left-[210px] left-[185px] flex flex-col gap-2 min-w-[250px] md:scale-120">
             <li className="ml-0">
               <SplitText
                 text="• Security Engineer"
@@ -132,7 +132,7 @@ export default function Hero() {
         </div>
 
         {/* === Logo Loop === */}
-        <div className="absolute top-[180px] left-0 w-full flex justify-center sm:top-[140px] md:top-[160px] lg:top-[180px]">
+        <div className="absolute top-190 left-0 w-full flex justify-center sm:top-0 md:top-240 lg:top-180 transition-all duration-500 ease-in-out">
           <div className="overflow-hidden relative h-24 md:h-32">
             <LogoLoop
               width="100%"
@@ -144,7 +144,7 @@ export default function Hero() {
               pauseOnHover
               scaleOnHover
               fadeOut
-              fadeOutColor="#2e0b70"
+              fadeOutColor="#1a0542"
               ariaLabel="Technology partners"
             />
           </div>
