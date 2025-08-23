@@ -64,7 +64,6 @@ export default function DarkVeil() {
 
   useEffect(() => {
     const canvas = ref.current;
-
     const renderer = new Renderer({
       canvas,
       dpr: Math.min(window.devicePixelRatio, 2),
@@ -116,10 +115,26 @@ export default function DarkVeil() {
   }, []);
 
   return (
-    <canvas
-      ref={ref}
-      className="absolute top-0 left-0 pointer-events-none"
-      style={{ background: "transparent", zIndex: -1 }}
-    />
+    <div
+      className="absolute inset-0 z-0 overflow-hidden"
+      style={{
+        WebkitMaskImage:
+          "linear-gradient(to right, transparent, black 30%, black 20%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
+        WebkitMaskComposite: "destination-in",
+        maskImage:
+          "linear-gradient(to right, transparent, black 30%, black 20%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
+        maskComposite: "intersect",
+        WebkitMaskRepeat: "no-repeat",
+        WebkitMaskSize: "100% 100%",
+        maskRepeat: "no-repeat",
+        maskSize: "100% 100%",
+      }}
+    >
+      <canvas
+        ref={ref}
+        className="absolute top-0 left-0 pointer-events-none"
+        style={{ background: "transparent", zIndex: -1 }}
+      />
+    </div>
   );
 }

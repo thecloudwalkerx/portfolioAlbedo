@@ -6,6 +6,10 @@
     --gradient: radial-gradient(circle, #e5e5e5 0%, #fff 100%);
 }
 
+/** {*/
+/*    outline: 1px solid red;*/
+/*}*/
+
 html,
 body {
     width: 100dvw;
@@ -14,6 +18,7 @@ body {
     color: #ececec;
     scroll-behavior: smooth;
     font-family: "Mona Sans", sans-serif;
+    overflow-x: hidden;
 }
 
 section {

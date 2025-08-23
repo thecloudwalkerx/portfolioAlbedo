@@ -2,12 +2,6 @@ import Button from "/src/components/Button.jsx";
 import RotatingText from "/src/animations/RotatingText.jsx";
 import SplitText from "/src/animations/SplitText.jsx";
 import LogoLoop from "/src/animations/LogoLoop.jsx";
-import { ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-    return twMerge(clsx(inputs));
-}
 
 import {
   SiReact,
@@ -37,7 +31,7 @@ export default function Hero() {
     console.log("All letters have animated!");
 
   return (
-    <section className="relative w-full min-h-screen text-headline overflow-hidden">
+    <section className="relative w-full min-h-screen text-headline overflow-hidden overflow-x-hidden">
       <div className="relative w-full h-full">
         {/* === Left Group: Headline + RotatingText + Intro + Button === */}
         <div className="absolute left-0 top-20 sm:top-20 sm:left-8 md:top-24 md:left-12 lg:top-40 lg:left-50 transition-all duration-500 ease-in-out scale-90">
