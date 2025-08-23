@@ -2,6 +2,12 @@ import Button from "/src/components/Button.jsx";
 import RotatingText from "/src/animations/RotatingText.jsx";
 import SplitText from "/src/animations/SplitText.jsx";
 import LogoLoop from "/src/animations/LogoLoop.jsx";
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+}
 
 import {
   SiReact,
