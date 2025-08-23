@@ -152,7 +152,7 @@ export default function Hero() {
               pauseOnHover
               scaleOnHover
               fadeOut
-              fadeOutColor="#1a0542"
+              fadeOutColor="#0c0b1a"
               ariaLabel="Technology partners"
             />
           </div>

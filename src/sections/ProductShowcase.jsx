@@ -137,12 +137,12 @@ export default function ProductShowcase({ products }) {
 // ========================
 export function Header() {
   return (
-    <div className="relative w-full max-w-7xl mx-auto px-4 py-20 md:py-40">
+    <div className="relative w-full max-w-7xl mx-auto py-20 md:py-40">
       <h2
         id="product-showcase-title"
-        className="text-2xl md:text-7xl font-zing text-headline"
+        className="absolute bottom-60 text-2xl md:text-7xl font-zing text-headline"
       >
-        The Ultimate <br /> development studio
+        BROWSE THROUGH ALL OF MY WORKS!
       </h2>
       <p className="text-xs md:text-xs max-w-md mt-4 text-headline">
         We build beautiful products with the latest technologies and frameworks.
