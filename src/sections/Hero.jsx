@@ -27,7 +27,7 @@ export default function Hero() {
 
       <div className="relative w-full h-full flex flex-col lg:flex-row items-start justify-between px-10 sm:px-15 md:px-25 lg:px-30 py-10 sm:py-10 md:py-25 lg:py-15">
         {/* === Left Group === */}
-        <div className="mt-20 sm:mt-24 lg:mt-35 flex-1 max-w-xl">
+        <div className="mt-20 sm:mt-24 md:mt-12 lg:mt-35 flex-1 max-w-xl">
           {/* First Line */}
           <h1 className="font-zing text-6xl md:text-8xl lg:text-tiny whitespace-nowrap">
             ALBEDO AND
@@ -66,15 +66,18 @@ export default function Hero() {
         <div className="relative mt-15 lg:mt-35 flex-1 flex justify-center lg:justify-end lg:mr-40 lg:ml-35">
           {/* Eye Image */}
           <div className="relative w-56 sm:w-56 md:w-70 lg:w-80">
-            <img
-              src="/src/public/hero_eye.png"
-              alt="Hero Eye"
+            <video
+              src="/src/public/hero_eye.webm"
+              autoPlay
+              muted
+              loop
+              playsInline
               draggable="false"
               className="w-full h-auto"
-            />
+            ></video>
 
             {/* Roles List (staircase effect) */}
-            <ul className="absolute top-0 left-20 md:left-26 flex flex-col min-w-[280px] sm:min-w-[250px] md:min-w-[280px]">
+            <ul className="absolute top-0 left-20 lg:left-50 md:left-26 flex flex-col min-w-[280px] sm:min-w-[250px] md:min-w-[280px]">
               {roles.map((role, idx) => (
                 <li key={idx} className={role.offset}>
                   <SplitText

@@ -9,9 +9,9 @@ export const heroLogos = [
 
 export const roles = [
   { text: "• Security Engineer", offset: "ml-0" },
-  { text: "• Senior Visual Artist", offset: "ml-17" },
-  { text: "• UI/UX Designer", offset: "ml-25" },
-  { text: "• Web Developer", offset: "ml-30" },
+  { text: "• Senior Visual Artist", offset: "ml-8" },
+  { text: "• UI/UX Designer", offset: "ml-16" },
+  { text: "• Web Developer", offset: "ml-24" },
 ];
 
 export const navLinks = [
