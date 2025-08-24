@@ -13,53 +13,73 @@ precision highp float;
 
 uniform vec2 uResolution;
 uniform float uTime;
-uniform vec3 uColor1;
-uniform vec3 uColor2;
+uniform float uSeed;
+uniform float uSpeed;
+uniform float uAttraction;
+uniform float uBlobGap;
+uniform vec3 uColor;
 
-float hash(vec2 p) {
-    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+float hash(vec2 p){
+    return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453);
 }
 
-float noise(vec2 p) {
+float noise(vec2 p){
     vec2 i = floor(p);
     vec2 f = fract(p);
     vec4 h = vec4(
         hash(i),
-        hash(i + vec2(1.0, 0.0)),
-        hash(i + vec2(0.0, 1.0)),
-        hash(i + vec2(1.0, 1.0))
+        hash(i + vec2(1.0,0.0)),
+        hash(i + vec2(0.0,1.0)),
+        hash(i + vec2(1.0,1.0))
     );
-    vec2 u = f * f * (3.0 - 2.0 * f);
-    return mix(mix(h.x, h.y, u.x), mix(h.z, h.w, u.x), u.y);
+    vec2 u = f*f*(3.0-2.0*f);
+    return mix(mix(h.x,h.y,u.x), mix(h.z,h.w,u.x), u.y);
 }
 
-void main() {
+void main(){
     vec2 uv = gl_FragCoord.xy / uResolution.xy;
     uv.x *= uResolution.x / uResolution.y;
 
-    float wave = sin(uv.x * 8.0 + uTime * 0.8) * 0.25 +
-                 sin(uv.y * 10.0 + uTime * 1.2) * 0.2 +
-                 noise(uv * 4.0 + uTime * 0.25) * 0.6;
+    float seedOffset = uSeed;
+
+    // Maintain wave pattern
+    float wave = sin(uv.x * 8.0 + uTime * uSpeed * 0.8 + seedOffset * 2.0) * 0.25 +
+                 sin(uv.y * 10.0 + uTime * uSpeed * 1.2 + seedOffset * 3.0) * 0.2 +
+                 noise(uv * 4.0 + uTime * uSpeed * 0.25 + seedOffset) * uAttraction;
 
     float mask = smoothstep(0.3, 0.7, wave);
-    float light = 0.4 + 0.6 * noise(uv * 4.0 + uTime * 0.25);
+    float light = 0.4 + 0.6 * noise(uv * 4.0 + uTime * uSpeed * 0.25 + seedOffset);
 
-    vec3 baseColor = mix(uColor1, uColor2, uv.y + sin(uv.x * 8.0 + uTime * 0.8) * 0.0625);
-    vec3 finalColor = baseColor * light;
+    // Circular gradient per patch
+    vec2 patchCenters[6];
+    for(int i=0; i<6; i++){
+        float angle = float(i) * 1.618 + seedOffset; // pseudo-random angle
+        patchCenters[i] = vec2(0.5) + uBlobGap * vec2(cos(angle), sin(angle));
+    }
 
+    float minDist = 1.0;
+    for(int i=0; i<6; i++){
+        float d = distance(uv, patchCenters[i]);
+        minDist = min(minDist, d);
+    }
+
+    vec3 finalColor = uColor * light; // single color applied
     gl_FragColor = vec4(finalColor, mask);
 }
 `;
 
-export default function DarkVeil() {
+export default function DarkVeil({
+  color = "#6211df",
+  speed = 1,
+  attraction = 0.6,
+  randomness = true,
+  blobGap = 0.3, // default gap from center
+}) {
   const ref = useRef(null);
 
   const hexToRgb = (hex) => {
     const h = hex.replace("#", "");
-    return Array.from(
-      [0, 2, 4],
-      (i) => parseInt(h.substring(i, i + 2), 16) / 255,
-    );
+    return [0, 2, 4].map((i) => parseInt(h.substring(i, i + 2), 16) / 255);
   };
 
   useEffect(() => {
@@ -74,14 +94,19 @@ export default function DarkVeil() {
 
     const geometry = new Triangle(gl);
 
+    const seed = randomness ? Math.random() * 1000 : 0;
+
     const program = new Program(gl, {
       vertex,
       fragment,
       uniforms: {
         uTime: { value: 0 },
-        uResolution: { value: new Vec2() },
-        uColor1: { value: hexToRgb("#330890") },
-        uColor2: { value: hexToRgb("#6211df") },
+        uSeed: { value: seed },
+        uSpeed: { value: speed },
+        uAttraction: { value: attraction },
+        uBlobGap: { value: blobGap },
+        uResolution: { value: new Vec2(window.innerWidth, window.innerHeight) },
+        uColor: { value: hexToRgb(color) },
       },
     });
 
@@ -89,7 +114,7 @@ export default function DarkVeil() {
 
     const resize = () => {
       const w = window.innerWidth;
-      const h = window.innerHeight; // <-- viewport height instead of scrollHeight
+      const h = window.innerHeight;
       renderer.setSize(w, h);
       program.uniforms.uResolution.value.set(w, h);
       canvas.style.width = w + "px";
@@ -112,11 +137,11 @@ export default function DarkVeil() {
       cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
     };
-  }, []);
+  }, [color, speed, attraction, randomness, blobGap]);
 
   return (
     <div
-      className="absolute inset-0 z-0 overflow-hidden"
+      className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
       style={{
         WebkitMaskImage:
           "linear-gradient(to right, transparent, black 30%, black 20%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
@@ -132,7 +157,7 @@ export default function DarkVeil() {
     >
       <canvas
         ref={ref}
-        className="absolute top-0 left-0 pointer-events-none"
+        className="absolute top-0 left-0 w-full h-full pointer-events-none"
         style={{ background: "transparent", zIndex: -1 }}
       />
     </div>

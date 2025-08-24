@@ -1,14 +1,8 @@
 import { useState, useEffect } from "react";
+import { navLinks } from "../constant/index.jsx";
 
 const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
-
-  const navLinks = [
-    { name: "Products", link: "#product-showcase" },
-    { name: "Experience", link: "#experience" },
-    { name: "Skills", link: "#skills" },
-    { name: "Testimonials", link: "#testimonials" },
-  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -21,8 +15,8 @@ const NavBar = () => {
       className={`fixed w-full left-1/2 py-5 px-5 md:px-20 -translate-x-1/2 z-[100] transition-all duration-300 ease-in-out
     ${
       scrolled
-        ? "top-0 bg-black/70 backdrop-blur-lg border-b border-transparent shadow-sm"
-        : "md:top-10 top-0 bg-black/50 backdrop-blur-md border-b border-transparent"
+        ? "top-0 bg-black/50 backdrop-blur-lg border-b border-transparent shadow-sm"
+        : "md:top-10 top-0 bg-black/40 backdrop-blur-md border-b border-transparent"
     }`}
     >
       <div className="mx-auto flex items-center justify-between">

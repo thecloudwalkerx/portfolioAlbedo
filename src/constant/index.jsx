@@ -6,3 +6,17 @@ export const heroLogos = [
   { src: "/src/public/logos/logo5.png", alt: "Logo 5" },
   { src: "/src/public/logos/logo6.png", alt: "Logo 6" },
 ];
+
+export const roles = [
+  { text: "• Security Engineer", offset: "ml-0" },
+  { text: "• Senior Visual Artist", offset: "ml-17" },
+  { text: "• UI/UX Designer", offset: "ml-25" },
+  { text: "• Web Developer", offset: "ml-30" },
+];
+
+export const navLinks = [
+  { name: "Projects", link: "#projects" },
+  { name: "Experience", link: "#experience" },
+  { name: "Skills", link: "#skills" },
+  { name: "Contact", link: "#testimonials" },
+];

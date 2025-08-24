@@ -3,28 +3,8 @@ import RotatingText from "/src/animations/RotatingText.jsx";
 import SplitText from "/src/animations/SplitText.jsx";
 import LogoLoop from "/src/animations/LogoLoop.jsx";
 import { heroLogos } from "../constant/index.jsx";
-
-import {
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
-  SiTailwindcss,
-} from "react-icons/si";
-
-const techLogos = [
-  { node: <SiReact />, title: "React", href: "https://react.dev" },
-  { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
-  {
-    node: <SiTypescript />,
-    title: "TypeScript",
-    href: "https://www.typescriptlang.org",
-  },
-  {
-    node: <SiTailwindcss />,
-    title: "Tailwind CSS",
-    href: "https://tailwindcss.com",
-  },
-];
+import { roles } from "../constant/index.jsx";
+import DarkVeil from "../components/DarkVeil.jsx";
 
 export default function Hero() {
   const handleHeroButtonClick = () => console.log("Hero button clicked!");
@@ -34,16 +14,27 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full min-h-screen text-headline overflow-hidden overflow-x-hidden"
+      className="relative w-full min-h-screen text-headline overflow-hidden"
     >
-      <div className="relative w-full h-full">
-        {/* === Left Group: Headline + RotatingText + Intro + Button === */}
-        <div className="absolute left-0 top-20 sm:top-20 sm:left-8 md:top-24 md:left-12 lg:top-40 lg:left-50 transition-all duration-500 ease-in-out scale-90">
+      <div>
+        <DarkVeil
+          color="#500ec0"
+          speed={0.8}
+          attraction={0.7}
+          randomness={true}
+        />
+      </div>
+
+      <div className="relative w-full h-full flex flex-col lg:flex-row items-start justify-between px-10 sm:px-15 md:px-25 lg:px-30 py-10 sm:py-10 md:py-25 lg:py-15">
+        {/* === Left Group === */}
+        <div className="mt-20 sm:mt-24 lg:mt-35 flex-1 max-w-xl">
           {/* First Line */}
-          <h1 className="font-zing text-6xl lg:text-tiny">ALBEDO AND</h1>
+          <h1 className="font-zing text-6xl md:text-8xl lg:text-tiny whitespace-nowrap">
+            ALBEDO AND
+          </h1>
 
           {/* RotatingText Line */}
-          <h1 className="font-zing text-6xl lg:text-tiny leading-tiny mt-2 flex items-center">
+          <h1 className="font-zing text-6xl md:text-8xl lg:text-tiny leading-tiny mt-2 flex items-center">
             THE
             <RotatingText
               texts={["CLOUD", "WALKER"]}
@@ -60,7 +51,7 @@ export default function Hero() {
           </h1>
 
           {/* Intro Paragraph */}
-          <p className="text-sm md:text-lg max-w-md mt-4">
+          <p className="text-sm md:text-lg mt-4">
             Greetings, I am Albedo. I serve as a Senior Visual Artist and a
             Frontend Developer. Verily, I am also an aspiring Security Engineer.
           </p>
@@ -71,91 +62,55 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* === Right Group: Eye + List === */}
-        <div className="scale-80 absolute top-100 right-40 sm:top-44 sm:right-8 md:top-150 md:right-60 lg:top-60 lg:right-110 z-0 transition-all duration-500 ease-in-out">
+        {/* === Right Group === */}
+        <div className="relative mt-15 lg:mt-35 flex-1 flex justify-center lg:justify-end lg:mr-40 lg:ml-35">
           {/* Eye Image */}
-          <div className="w-56 lg:w-56 md:w-48 sm:w-40 scale-150 lg:scale-150 md:scale-200 sm:scale-110 relative">
+          <div className="relative w-56 sm:w-56 md:w-70 lg:w-80">
             <img
               src="/src/public/hero_eye.png"
               alt="Hero Eye"
               draggable="false"
+              className="w-full h-auto"
             />
-          </div>
 
-          {/* Role List */}
-          <ul className="absolute top-0 md:left-[210px] left-[185px] flex flex-col gap-2 min-w-[250px] md:scale-120">
-            <li className="ml-0">
-              <SplitText
-                text="• Security Engineer"
-                splitType="chars"
-                from={{ opacity: 0, y: 40 }}
-                to={{ opacity: 1, y: 0 }}
-                duration={1.5}
-                delay={10}
-                ease="elastic.out(0.1, 0.3)"
-                onLetterAnimationComplete={handleAnimationComplete}
-                className="inline-block"
-              />
-            </li>
-            <li className="ml-8">
-              <SplitText
-                text="• Senior Visual Artist"
-                splitType="chars"
-                from={{ opacity: 0, y: 40 }}
-                to={{ opacity: 1, y: 0 }}
-                duration={1.5}
-                delay={10}
-                ease="elastic.out(0.1, 0.3)"
-                onLetterAnimationComplete={handleAnimationComplete}
-                className="inline-block"
-              />
-            </li>
-            <li className="ml-16">
-              <SplitText
-                text="• UI/UX Designer"
-                splitType="chars"
-                from={{ opacity: 0, y: 40 }}
-                to={{ opacity: 1, y: 0 }}
-                duration={1.5}
-                delay={10}
-                ease="elastic.out(0.1, 0.3)"
-                onLetterAnimationComplete={handleAnimationComplete}
-                className="inline-block"
-              />
-            </li>
-            <li className="ml-20">
-              <SplitText
-                text="• Web Developer"
-                splitType="chars"
-                from={{ opacity: 0, y: 40 }}
-                to={{ opacity: 1, y: 0 }}
-                duration={1.5}
-                delay={10}
-                ease="elastic.out(0.1, 0.3)"
-                onLetterAnimationComplete={handleAnimationComplete}
-                className="inline-block"
-              />
-            </li>
-          </ul>
+            {/* Roles List (staircase effect) */}
+            <ul className="absolute top-0 left-20 md:left-26 flex flex-col min-w-[280px] sm:min-w-[250px] md:min-w-[280px]">
+              {roles.map((role, idx) => (
+                <li key={idx} className={role.offset}>
+                  <SplitText
+                    text={role.text}
+                    splitType="chars"
+                    from={{ opacity: 0, y: 40 }}
+                    to={{ opacity: 1, y: 0 }}
+                    duration={1.5}
+                    delay={10}
+                    ease="elastic.out(0.1, 0.3)"
+                    onLetterAnimationComplete={handleAnimationComplete}
+                    className="inline-block"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
+      </div>
 
-        {/* === Logo Loop === */}
-        <div className="absolute top-190 left-0 w-full flex justify-center sm:top-0 md:top-240 lg:top-180 transition-all duration-500 ease-in-out">
-          <div className="overflow-hidden relative" style={{ height: "48px" }}>
-            <LogoLoop
-              width="100%"
-              logos={heroLogos}
-              speed={35}
-              direction="left"
-              logoHeight={40}
-              gap={100}
-              pauseOnHover
-              scaleOnHover
-              fadeOut
-              fadeOutColor="#0c0b1a"
-              ariaLabel="Technology partners"
-            />
-          </div>
+      {/* === Logo Loop === */}
+      <div className="absolute bottom-15 lg:bottom-20 md:bottom-10 sm:bottom-10 left-0 w-full flex justify-center">
+        <div className="overflow-hidden relative" style={{ height: "48px" }}>
+          <LogoLoop
+            width="100%"
+            logos={heroLogos}
+            speed={35}
+            direction="left"
+            logoHeight={40}
+            gap={80} // reduced gap so no empty space
+            pauseOnHover
+            scaleOnHover
+            fadeOut
+            fadeOutColor="#0c0b1a"
+            ariaLabel="Clients"
+          />
         </div>
       </div>
     </section>
