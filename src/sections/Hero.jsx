@@ -14,7 +14,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full min-h-screen text-headline overflow-hidden"
+      className="snap-start relative w-full min-h-screen text-headline overflow-hidden"
     >
       <div>
         <DarkVeil
@@ -107,11 +107,11 @@ export default function Hero() {
             speed={35}
             direction="left"
             logoHeight={40}
-            gap={80} // reduced gap so no empty space
-            pauseOnHover
-            scaleOnHover
-            fadeOut
-            fadeOutColor="#0c0b1a"
+            gap={80}
+            hoverMode="slow" // replaces pauseOnHover
+            scaleOnHover={true} // same as before
+            fadeOut={true} // same as before
+            fadeOutColor="#0c0b1a" // same as before
             ariaLabel="Clients"
           />
         </div>

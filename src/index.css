@@ -19,7 +19,6 @@ body {
     scroll-behavior: smooth;
     font-family: "Mona Sans", sans-serif;
     overflow-x: hidden;
-    scroll-behavior: smooth;
 }
 
 section {
@@ -51,5 +50,32 @@ section {
         line-height: var(--text-tiny--line-height);
         letter-spacing: var(--text-tiny--letter-spacing);
         font-weight: var(--text-tiny--font-weight);
+    }
+}
+
+@layer keyframes {
+    @keyframes marquee {
+        from { transform: translateX(0%); }
+        to { transform: translateX(-50%); }
+    }
+    @keyframes floatMagnetic {
+        0%   { transform: translateY(0px); }
+        25%  { transform: translateY(-5px); }
+        50%  { transform: translateY(0px); }
+        75%  { transform: translateY(3px); }
+        100% { transform: translateY(0px); }
+    }
+}
+
+@layer utilities {
+    .translate-101 {
+        --tw-translate-x: 101%;
+        transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    }
+    .animate-marquee {
+        animation: marquee 15s linear infinite;
+    }
+    .magnetic {
+        animation: floatMagnetic 3s ease-in-out infinite;
     }
 }

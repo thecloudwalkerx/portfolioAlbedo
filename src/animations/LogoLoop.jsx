@@ -32,7 +32,6 @@ const useResizeObserver = (callback, elements, dependencies) => {
     return () => {
       observers.forEach((observer) => observer?.disconnect());
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 };
 
@@ -54,12 +53,11 @@ const useImageLoader = (seqRef, onLoad, dependencies) => {
     };
 
     images.forEach((img) => {
-      const htmlImg = img;
-      if (htmlImg.complete) {
+      if (img.complete) {
         handleImageLoad();
       } else {
-        htmlImg.addEventListener("load", handleImageLoad, { once: true });
-        htmlImg.addEventListener("error", handleImageLoad, { once: true });
+        img.addEventListener("load", handleImageLoad, { once: true });
+        img.addEventListener("error", handleImageLoad, { once: true });
       }
     });
 
@@ -69,7 +67,6 @@ const useImageLoader = (seqRef, onLoad, dependencies) => {
         img.removeEventListener("error", handleImageLoad);
       });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 };
 
@@ -77,8 +74,8 @@ const useAnimationLoop = (
   trackRef,
   targetVelocity,
   seqWidth,
+  hoverMode,
   isHovered,
-  pauseOnHover,
 ) => {
   const rafRef = useRef(null);
   const lastTimestampRef = useRef(null);
@@ -101,34 +98,37 @@ const useAnimationLoop = (
     }
 
     if (prefersReduced) {
-      track.style.transform = "translate3d(0, 0, 0)";
+      track.style.transform = "translate3d(0,0,0)";
       return () => {
         lastTimestampRef.current = null;
       };
     }
 
     const animate = (timestamp) => {
-      if (lastTimestampRef.current === null) {
+      if (lastTimestampRef.current === null)
         lastTimestampRef.current = timestamp;
-      }
-
       const deltaTime =
         Math.max(0, timestamp - lastTimestampRef.current) / 1000;
       lastTimestampRef.current = timestamp;
 
-      const target = pauseOnHover && isHovered ? 0 : targetVelocity;
+      let effectiveVelocity = targetVelocity;
+
+      if (hoverMode === "pause" && isHovered) {
+        effectiveVelocity = 0;
+      } else if (hoverMode === "slow" && isHovered) {
+        effectiveVelocity = targetVelocity * 0.3; // 30% speed when slow
+      }
 
       const easingFactor =
         1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
-      velocityRef.current += (target - velocityRef.current) * easingFactor;
+      velocityRef.current +=
+        (effectiveVelocity - velocityRef.current) * easingFactor;
 
       if (seqWidth > 0) {
         let nextOffset = offsetRef.current + velocityRef.current * deltaTime;
         nextOffset = ((nextOffset % seqWidth) + seqWidth) % seqWidth;
         offsetRef.current = nextOffset;
-
-        const translateX = -offsetRef.current;
-        track.style.transform = `translate3d(${translateX}px, 0, 0)`;
+        track.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
       }
 
       rafRef.current = requestAnimationFrame(animate);
@@ -137,13 +137,10 @@ const useAnimationLoop = (
     rafRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       lastTimestampRef.current = null;
     };
-  }, [targetVelocity, seqWidth, isHovered, pauseOnHover, trackRef]);
+  }, [targetVelocity, seqWidth, hoverMode, isHovered, trackRef]);
 };
 
 export const LogoLoop = memo(
@@ -154,10 +151,10 @@ export const LogoLoop = memo(
     width = "100%",
     logoHeight = 28,
     gap = 32,
-    pauseOnHover = true,
+    hoverMode, // "pause", "slow", or undefined
     fadeOut = false,
     fadeOutColor,
-    scaleOnHover = false,
+    scaleOnHover = true,
     ariaLabel = "Partner logos",
     className,
     style,
@@ -199,13 +196,7 @@ export const LogoLoop = memo(
 
     useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight]);
 
-    useAnimationLoop(
-      trackRef,
-      targetVelocity,
-      seqWidth,
-      isHovered,
-      pauseOnHover,
-    );
+    useAnimationLoop(trackRef, targetVelocity, seqWidth, hoverMode, isHovered);
 
     const cssVariables = useMemo(
       () => ({
@@ -230,13 +221,8 @@ export const LogoLoop = memo(
       [scaleOnHover, className],
     );
 
-    const handleMouseEnter = useCallback(() => {
-      if (pauseOnHover) setIsHovered(true);
-    }, [pauseOnHover]);
-
-    const handleMouseLeave = useCallback(() => {
-      if (pauseOnHover) setIsHovered(false);
-    }, [pauseOnHover]);
+    const handleMouseEnter = useCallback(() => setIsHovered(true), []);
+    const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
     const renderLogoItem = useCallback(
       (item, key) => {
@@ -248,7 +234,7 @@ export const LogoLoop = memo(
               "inline-flex items-center",
               "motion-reduce:transition-none",
               scaleOnHover &&
-                "transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120",
+                "transition-transform duration-500 ease-in-out group-hover/item:scale-110",
             )}
             aria-hidden={!!item.href && !item.ariaLabel}
           >
@@ -262,7 +248,7 @@ export const LogoLoop = memo(
               "[image-rendering:-webkit-optimize-contrast]",
               "motion-reduce:transition-none",
               scaleOnHover &&
-                "transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120",
+                "transition-transform duration-500 ease-in-out group-hover/item:scale-110",
             )}
             src={item.src}
             srcSet={item.srcSet}
@@ -389,5 +375,4 @@ export const LogoLoop = memo(
 );
 
 LogoLoop.displayName = "LogoLoop";
-
 export default LogoLoop;

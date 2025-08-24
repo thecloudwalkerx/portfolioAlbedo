@@ -1,36 +1,38 @@
-import Grain from "/src/components/Grain.jsx";
+import { useRef } from "react";
 import { BlurReveal } from "../animations/BlurReveal.jsx";
+import { useMagneticScroll } from "../hooks/useMagneticScroll.jsx";
 
 export default function Projects() {
+  const sectionRef = useRef(null);
+
+  useMagneticScroll(sectionRef, { factor: 0.5, clamp: 40, smooth: 700 });
+
   return (
     <section
+      ref={sectionRef}
       id="projects"
-      className="relative w-full min-h-screen text-headline overflow-hidden"
+      className="snap-start relative w-full text-headline overflow-hidden
+             px-6 sm:px-10 md:px-16 lg:px-40 xl:px-32 lg:pt-40"
     >
-      <Grain
-        speed={0.2} // particle movement speed
-        maxParticles={200} // maximum grains
-        opacity={1} // grain opacity
-        size={2} // radius of each grain
-        blur={1} // blur effect
-        color="#500ec0" // grain color
-        fadeHeight={20} // top/bottom fade height
-      />
-      <div className="relative w-full h-full flex flex-col lg:flex-row items-start justify-between px-10 sm:px-15 md:px-25 lg:px-30 py-10 sm:py-10 md:py-25 lg:py-15">
-        {/* === Left Group === */}
-        <div className="mt-15 sm:mt-20 lg:mt-20 flex-1 flex justify-center items-center">
-          {/* Title */}
-          <h2 className="font-zing text-6xl md:text-8xl lg:text-tiny text-center">
+      <div className="relative w-full flex flex-col lg:flex-row items-start justify-center gap-10 lg:gap-20">
+        {/* Left group */}
+        <div className="flex-1 flex flex-col items-center lg:items-start gap-6">
+          <h2 className="m-0 font-zing text-6xl md:text-8xl lg:text-[120px] text-center lg:text-left z-10">
             ABOUT&nbsp;
             <BlurReveal words="CLOUD" blurStart={30} duration={0.7} />
           </h2>
+
+          <img
+            src="src/public/profile_photo.png"
+            alt="My Photo"
+            className="w-40 sm:w-48 md:w-48 lg:w-80 object-contain m-0"
+          />
         </div>
 
-        {/* === Right Group === */}
-        <div className="relative mt-15 sm:mt-20 lg:mt-20 flex-1 flex justify-center lg:justify-end lg:mr-40 lg:ml-35">
-          {/* Placeholder for future content */}
-          <div className="w-56 sm:w-56 md:w-70 lg:w-150 flex text-justify leading-relaxed items-center">
-            <p className="text-sm md:text-lg text-muted">
+        {/* Right group */}
+        <div className="flex-1 flex justify-center lg:justify-end">
+          <div className="w-56 sm:w-56 md:w-70 lg:w-[36rem] flex text-justify leading-relaxed items-center">
+            <p className="m-0 text-sm md:text-lg text-muted">
               I navigate the ever-evolving universe of design and development,
               seeking elegance in every pixel and security in every line of
               code.
@@ -38,7 +40,6 @@ export default function Projects() {
           </div>
         </div>
       </div>
-      {/* Footer placeholder for future decorative elements */}
     </section>
   );
 }

@@ -21,8 +21,9 @@ const Grain = ({
     let animationId;
 
     const resize = () => {
-      canvas.width = canvas.parentElement.offsetWidth;
-      canvas.height = canvas.parentElement.offsetHeight;
+      // Fix canvas to viewport size
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
       particles.current = [];
       for (let i = 0; i < maxParticles; i++) {
@@ -43,13 +44,11 @@ const Grain = ({
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap around edges
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
         if (p.y < 0) p.y = height;
         if (p.y > height) p.y = 0;
 
-        // Top/bottom fade
         let fadeFactor = 1;
         if (p.y < fadeHeight) fadeFactor = 0.3 + 0.7 * (p.y / fadeHeight);
         else if (p.y > height - fadeHeight)
@@ -85,10 +84,12 @@ const Grain = ({
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none absolute top-0 left-0 w-full h-full"
+      className="pointer-events-none fixed top-0 left-0"
       style={{
         zIndex: 0,
         filter: `blur(${blur}px)`,
+        width: window.innerWidth,
+        height: window.innerHeight,
         imageRendering: "auto",
       }}
     />
