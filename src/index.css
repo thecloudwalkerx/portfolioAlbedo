@@ -12,13 +12,12 @@
 
 html,
 body {
-    width: 100dvw;
+    width: 100%;
     overflow-x: hidden;
     background-color: #0c0b1a;
     color: #ececec;
     scroll-behavior: smooth;
     font-family: "Mona Sans", sans-serif;
-    overflow-x: hidden;
 }
 
 section {
@@ -78,4 +77,8 @@ section {
     .magnetic {
         animation: floatMagnetic 3s ease-in-out infinite;
     }
+}
+
+* {
+    outline: 1px solid rgba(255, 0, 0, 0.3) !important;
 }

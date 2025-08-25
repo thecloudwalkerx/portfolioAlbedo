@@ -9,6 +9,7 @@ void main() {
 `;
 
 const fragment = `
+// your fragment shader remains the same
 precision highp float;
 
 uniform vec2 uResolution;
@@ -42,7 +43,6 @@ void main(){
 
     float seedOffset = uSeed;
 
-    // Maintain wave pattern
     float wave = sin(uv.x * 8.0 + uTime * uSpeed * 0.8 + seedOffset * 2.0) * 0.25 +
                  sin(uv.y * 10.0 + uTime * uSpeed * 1.2 + seedOffset * 3.0) * 0.2 +
                  noise(uv * 4.0 + uTime * uSpeed * 0.25 + seedOffset) * uAttraction;
@@ -50,10 +50,9 @@ void main(){
     float mask = smoothstep(0.3, 0.7, wave);
     float light = 0.4 + 0.6 * noise(uv * 4.0 + uTime * uSpeed * 0.25 + seedOffset);
 
-    // Circular gradient per patch
     vec2 patchCenters[6];
     for(int i=0; i<6; i++){
-        float angle = float(i) * 1.618 + seedOffset; // pseudo-random angle
+        float angle = float(i) * 1.618 + seedOffset;
         patchCenters[i] = vec2(0.5) + uBlobGap * vec2(cos(angle), sin(angle));
     }
 
@@ -63,7 +62,7 @@ void main(){
         minDist = min(minDist, d);
     }
 
-    vec3 finalColor = uColor * light; // single color applied
+    vec3 finalColor = uColor * light;
     gl_FragColor = vec4(finalColor, mask);
 }
 `;
@@ -73,7 +72,7 @@ export default function DarkVeil({
   speed = 1,
   attraction = 0.6,
   randomness = true,
-  blobGap = 0.3, // default gap from center
+  blobGap = 0.3,
 }) {
   const ref = useRef(null);
 
@@ -93,7 +92,6 @@ export default function DarkVeil({
     gl.clearColor(0, 0, 0, 0);
 
     const geometry = new Triangle(gl);
-
     const seed = randomness ? Math.random() * 1000 : 0;
 
     const program = new Program(gl, {
@@ -143,11 +141,12 @@ export default function DarkVeil({
     <div
       className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
       style={{
+        overflow: "hidden", // prevents x-axis scroll
         WebkitMaskImage:
-          "linear-gradient(to right, transparent, black 30%, black 20%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
+          "linear-gradient(to right, transparent, black 20%, black 80%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
         WebkitMaskComposite: "destination-in",
         maskImage:
-          "linear-gradient(to right, transparent, black 30%, black 20%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
+          "linear-gradient(to right, transparent, black 20%, black 80%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
         maskComposite: "intersect",
         WebkitMaskRepeat: "no-repeat",
         WebkitMaskSize: "100% 100%",
@@ -158,7 +157,7 @@ export default function DarkVeil({
       <canvas
         ref={ref}
         className="absolute top-0 left-0 w-full h-full pointer-events-none"
-        style={{ background: "transparent", zIndex: -1 }}
+        style={{ background: "transparent" }}
       />
     </div>
   );

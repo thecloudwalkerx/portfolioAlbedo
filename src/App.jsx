@@ -1,28 +1,31 @@
 import React from "react";
 import Hero from "./sections/Hero.jsx";
 import Navbar from "./components/Navbar.jsx";
-import Projects from "./sections/Projects.jsx";
 import Grain from "./components/Grain.jsx";
-import YouLie from "./sections/YouLie.jsx";
+import DarkVeil from "./components/DarkVeil.jsx";
 
 const App = () => {
   return (
     <main>
-      {/* Background grain */}
       <Grain
-        speed={0.2}
-        maxParticles={200}
-        opacity={1}
-        size={2}
-        blur={1}
+        speed={0.4}
+        maxParticles={400}
+        opacity={0.2}
+        size={3}
+        blur={0}
         color="#500ec0"
-        fadeHeight={20}
+        fadeHeight={100}
+      />
+      <DarkVeil
+        color="#500ec0"
+        speed={0.8}
+        attraction={0.7}
+        randomness={true}
       />
 
       <Navbar />
       <Hero />
-      <Projects />
-      <YouLie />
+      <Hero />
     </main>
   );
 };

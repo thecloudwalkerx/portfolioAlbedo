@@ -4,7 +4,6 @@ import SplitText from "/src/animations/SplitText.jsx";
 import LogoLoop from "/src/animations/LogoLoop.jsx";
 import { heroLogos } from "../constant/index.jsx";
 import { roles } from "../constant/index.jsx";
-import DarkVeil from "../components/DarkVeil.jsx";
 
 export default function Hero() {
   const handleHeroButtonClick = () => console.log("Hero button clicked!");
@@ -16,15 +15,6 @@ export default function Hero() {
       id="hero"
       className="snap-start relative w-full min-h-screen text-headline overflow-hidden"
     >
-      <div>
-        <DarkVeil
-          color="#500ec0"
-          speed={0.8}
-          attraction={0.7}
-          randomness={true}
-        />
-      </div>
-
       <div className="relative w-full h-full flex flex-col lg:flex-row items-start justify-between px-10 sm:px-15 md:px-25 lg:px-30 py-10 sm:py-10 md:py-25 lg:py-15">
         {/* === Left Group === */}
         <div className="mt-20 sm:mt-24 md:mt-12 lg:mt-35 flex-1 max-w-xl">

@@ -2,10 +2,10 @@ import { useRef, useEffect } from "react";
 
 const Grain = ({
   speed = 0.2,
-  maxParticles = 1000,
-  opacity = 0.05,
+  maxParticles = 200,
+  opacity = 0.1, // increased for visibility
   size = 2,
-  blur = 2,
+  blur = 1,
   color = "#ffffff",
   fadeHeight = 150,
 }) => {
@@ -21,15 +21,17 @@ const Grain = ({
     let animationId;
 
     const resize = () => {
-      // Fix canvas to viewport size
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const width = window.innerWidth;
+      const height = document.documentElement.scrollHeight;
+
+      canvas.width = width;
+      canvas.height = height;
 
       particles.current = [];
       for (let i = 0; i < maxParticles; i++) {
         particles.current.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
+          x: Math.random() * width,
+          y: Math.random() * height,
           vx: (Math.random() - 0.5) * speed,
           vy: (Math.random() - 0.5) * speed,
         });
@@ -60,6 +62,7 @@ const Grain = ({
           color.slice(3, 5),
           16,
         )},${parseInt(color.slice(5, 7), 16)},${particleAlpha})`;
+
         ctx.beginPath();
         ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
         ctx.fill();
@@ -84,13 +87,15 @@ const Grain = ({
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed top-0 left-0"
       style={{
-        zIndex: 0,
+        position: "fixed", // <- stay fixed behind everything
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vw",
+        zIndex: 0, // <- use 0 (not -1), to avoid being hidden by body bg
         filter: `blur(${blur}px)`,
-        width: window.innerWidth,
-        height: window.innerHeight,
-        imageRendering: "auto",
+        pointerEvents: "none",
       }}
     />
   );
