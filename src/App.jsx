@@ -27,7 +27,7 @@ const App = () => {
         randomness={true}
       />
 
-      {/*<Navbar />*/}
+      <Navbar />
       <Hero />
       <AboutMe />
       <DeckReveal
