@@ -64,7 +64,7 @@ export default function AboutMe() {
         width="100%"
         rounded
         animationConfig={{ stiffness: 220, damping: 50 }}
-        backgroundColor="#f0f0f0"
+        backgroundColor="#e4d8ff"
         offset="800"
       >
         <DeckContent />
