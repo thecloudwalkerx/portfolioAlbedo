@@ -17,7 +17,7 @@ export default function Hero() {
     >
       <div className="relative w-full h-full flex flex-col lg:flex-row items-start justify-between px-10 md:px-20 lg:px-40 py-10 md:py-20 lg:py-25">
         {/* === Left Group === */}
-        <div className="mt-20 md:mt-12 lg:mt-35 flex-1 max-w-xl">
+        <div className="mt-20 md:mt-12 lg:mt-35 flex-1 max-w-xl pointer-events-none">
           {/* First Line */}
           <h1 className="font-zing text-6xl md:text-8xl whitespace-nowrap">
             ALBEDO AND

@@ -6,6 +6,7 @@ import DarkVeil from "./components/DarkVeil.jsx";
 import AboutMe from "./sections/AboutMe.jsx";
 import DeckReveal from "./components/DeckReveal.jsx";
 import DeckContent from "./constant/DeckContents.jsx";
+import ExperimentalSection from "./sections/ExperimentalSection.jsx";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
       <Navbar />
       <Hero />
       <AboutMe />
+
       <DeckReveal
         height="500px"
         width="100%"
@@ -40,7 +42,8 @@ const App = () => {
       >
         <DeckContent />
       </DeckReveal>
-      <Hero />
+
+      <ExperimentalSection />
     </main>
   );
 };
