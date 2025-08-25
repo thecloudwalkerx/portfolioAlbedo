@@ -6,9 +6,9 @@ export default function DeckReveal({
   rounded = false,
   height = "300px",
   width = "100%",
-  animationConfig = { stiffness: 100, damping: 20 }, // can now control spring
+  animationConfig = { stiffness: 100, damping: 20 },
   backgroundColor = "#ffffff",
-  offset = "100%",
+  offset = "100%", // now interpreted as “move up by offset”
   children,
 }) {
   const ref = useRef(null);
@@ -18,14 +18,15 @@ export default function DeckReveal({
     offset: ["start end", "end start"],
   });
 
-  // Apply spring physics to the scroll animation
-  const rawY = useTransform(scrollYProgress, [0, 1], [offset, "0%"]);
+  // Convert offset to a proper upward movement
+  // Start at 0% and move upward by offset
+  const rawY = useTransform(scrollYProgress, [0, 1], ["0%", `-${offset}`]);
   const y = useSpring(rawY, animationConfig);
 
-  const borderRadius = rounded ? "2rem" : "0";
+  const borderRadius = rounded ? "1.5rem" : "0";
 
   return (
-    <section className="relative w-full flex justify-center items-center overflow-visible">
+    <section className="relative w-full h-10 flex justify-center items-center overflow-visible">
       <motion.div
         ref={ref}
         style={{ y, height, width, borderRadius, backgroundColor }}
