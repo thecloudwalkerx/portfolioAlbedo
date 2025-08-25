@@ -12,7 +12,7 @@ export default function AboutMe() {
       className="relative w-full h-[900px] text-headline overflow-visible"
     >
       {/* Two-column container */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full px-8 lg:px-16 lg:py-20 relative">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full lg:px-16 lg:py-20 relative">
         {/* Left column: text + cards (was right before) */}
         <div className="relative flex flex-col items-start justify-start lg:top-15 left-8 sm:top-28 sm:left-16 pr-30 order-2 lg:order-1">
           <p className="pb-8">
@@ -22,8 +22,8 @@ export default function AboutMe() {
 
           <ExpandableCards
             items={myItems}
-            blurStrength="lg"
-            blackOpacity={0.7}
+            blurStrength="md"
+            blackOpacity={0.3}
             animationSpeed={0.25}
             cardColor="bg-gray-100"
             collapsedTitleColor="text-blue-700"
@@ -38,22 +38,22 @@ export default function AboutMe() {
 
         {/* Right column: headline + image (was left before) */}
         <div className="relative w-full h-full flex order-1 lg:order-2">
-          <h1 className="absolute lg:top-25 left-8 sm:top-28 sm:left-16 text-2xl sm:text-4xl md:text-5xl lg:text-8xl font-zing text-headline z-0 pointer-events-none">
+          <h1 className="absolute lg:top-25 left-8 sm:top-28 sm:left-60 text-2xl sm:text-4xl md:text-5xl lg:text-8xl font-zing text-headline z-0 pointer-events-none">
             ABOUT THE CLOUD
           </h1>
 
           <img
             src="/src/public/profile_photo.png"
             alt="Background"
-            className="absolute left-0 sm:top-36 md:top-40 lg:top-10 w-40 sm:w-52 md:w-64 lg:w-110 z-10"
+            className="absolute left-35 sm:top-36 md:top-40 lg:top-10 w-40 sm:w-52 md:w-64 lg:w-110 z-10"
           />
 
-          <div className="absolute lg:top-25 left-8 sm:top-28 sm:left-16 z-20 pointer-events-none">
+          <div className="absolute lg:top-25 left-8 sm:top-28 sm:left-60 z-20 pointer-events-none">
             <h1
               className="text-2xl sm:text-4xl md:text-5xl lg:text-8xl font-zing text-transparent"
               style={{ WebkitTextStroke: "0.5px #e4d8ff" }}
             >
-              ABOUT THE
+              ABOUT THE CLOUD
             </h1>
           </div>
         </div>

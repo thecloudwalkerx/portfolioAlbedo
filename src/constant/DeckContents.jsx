@@ -9,7 +9,6 @@ export default function DeckContent() {
         text="This is animated <br /> across two lines"
         speed={0.04}
       />
-      <DarkVeil color="e4d8ff" speed={0.8} attraction={0.7} randomness={true} />
     </section>
   );
 }
