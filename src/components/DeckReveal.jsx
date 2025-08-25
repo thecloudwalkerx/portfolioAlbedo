@@ -26,11 +26,11 @@ export default function DeckReveal({
   const borderRadius = rounded ? "1.5rem" : "0";
 
   return (
-    <section className="relative w-full h-10 flex justify-center items-center overflow-visible">
+    <section className="relative w-full h-60 flex justify-center items-center overflow-visible z-[20] lg:mt-70 md:mt-0 sm:mt-0 mt-0">
       <motion.div
         ref={ref}
         style={{ y, height, width, borderRadius, backgroundColor }}
-        className={`relative overflow-hidden ${rounded ? "rounded-2xl" : ""}`}
+        className={`relative ${rounded ? "rounded-2xl" : ""} shadow-deck`}
       >
         {children}
       </motion.div>

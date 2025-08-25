@@ -31,18 +31,6 @@ const App = () => {
       <Navbar />
       <Hero />
       <AboutMe />
-
-      <DeckReveal
-        height="500px"
-        width="100%"
-        rounded
-        animationConfig={{ stiffness: 80, damping: 25 }}
-        backgroundColor="#f0f0f0"
-        offset="50"
-      >
-        <DeckContent />
-      </DeckReveal>
-
       <ExperimentalSection />
     </main>
   );
