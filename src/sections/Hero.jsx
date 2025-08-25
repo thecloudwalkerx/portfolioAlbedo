@@ -13,9 +13,9 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="snap-start relative w-full min-h-screen text-headline overflow-hidden"
+      className="relative w-full min-h-screen text-headline overflow-hidden"
     >
-      <div className="relative w-full h-full flex flex-col lg:flex-row items-start justify-between px-10 md:px-20 lg:px-30 py-10 md:py-20 lg:py-15">
+      <div className="relative w-full h-full flex flex-col lg:flex-row items-start justify-between px-10 md:px-20 lg:px-40 py-10 md:py-20 lg:py-25">
         {/* === Left Group === */}
         <div className="mt-20 md:mt-12 lg:mt-35 flex-1 max-w-xl">
           {/* First Line */}

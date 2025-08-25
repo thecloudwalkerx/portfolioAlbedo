@@ -3,6 +3,7 @@ import Hero from "./sections/Hero.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Grain from "./components/Grain.jsx";
 import DarkVeil from "./components/DarkVeil.jsx";
+import AboutMe from "./sections/AboutMe.jsx";
 
 const App = () => {
   return (
@@ -25,6 +26,8 @@ const App = () => {
       />
 
       <Navbar />
+      <Hero />
+      <AboutMe />
       <Hero />
     </main>
   );
