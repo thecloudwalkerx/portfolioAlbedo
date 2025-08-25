@@ -3,7 +3,7 @@ import { useRef, useEffect } from "react";
 const Grain = ({
   speed = 0.2,
   maxParticles = 200,
-  opacity = 0.1, // increased for visibility
+  opacity = 0.1,
   size = 2,
   blur = 1,
   color = "#ffffff",
@@ -22,7 +22,7 @@ const Grain = ({
 
     const resize = () => {
       const width = window.innerWidth;
-      const height = document.documentElement.scrollHeight;
+      const height = window.innerHeight; // <- use viewport height
 
       canvas.width = width;
       canvas.height = height;
@@ -56,12 +56,10 @@ const Grain = ({
         else if (p.y > height - fadeHeight)
           fadeFactor = 0.3 + 0.7 * ((height - p.y) / fadeHeight);
 
-        const particleAlpha = opacity * fadeFactor;
-
         ctx.fillStyle = `rgba(${parseInt(color.slice(1, 3), 16)},${parseInt(
           color.slice(3, 5),
           16,
-        )},${parseInt(color.slice(5, 7), 16)},${particleAlpha})`;
+        )},${parseInt(color.slice(5, 7), 16)},${opacity * fadeFactor})`;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
@@ -88,12 +86,12 @@ const Grain = ({
     <canvas
       ref={canvasRef}
       style={{
-        position: "fixed", // <- stay fixed behind everything
+        position: "fixed",
         top: 0,
         left: 0,
         width: "100vw",
-        height: "100vw",
-        zIndex: 0, // <- use 0 (not -1), to avoid being hidden by body bg
+        height: "100vh",
+        zIndex: 0,
         filter: `blur(${blur}px)`,
         pointerEvents: "none",
       }}

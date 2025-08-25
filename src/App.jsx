@@ -9,13 +9,14 @@ const App = () => {
     <main>
       <Grain
         speed={0.4}
-        maxParticles={400}
-        opacity={0.2}
+        maxParticles={50}
+        opacity={0.5}
         size={3}
-        blur={0}
+        blur={0.5}
         color="#500ec0"
         fadeHeight={100}
       />
+
       <DarkVeil
         color="#500ec0"
         speed={0.8}
@@ -24,7 +25,6 @@ const App = () => {
       />
 
       <Navbar />
-      <Hero />
       <Hero />
     </main>
   );

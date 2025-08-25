@@ -15,16 +15,16 @@ export default function Hero() {
       id="hero"
       className="snap-start relative w-full min-h-screen text-headline overflow-hidden"
     >
-      <div className="relative w-full h-full flex flex-col lg:flex-row items-start justify-between px-10 sm:px-15 md:px-25 lg:px-30 py-10 sm:py-10 md:py-25 lg:py-15">
+      <div className="relative w-full h-full flex flex-col lg:flex-row items-start justify-between px-10 md:px-20 lg:px-30 py-10 md:py-20 lg:py-15">
         {/* === Left Group === */}
-        <div className="mt-20 sm:mt-24 md:mt-12 lg:mt-35 flex-1 max-w-xl">
+        <div className="mt-20 md:mt-12 lg:mt-35 flex-1 max-w-xl">
           {/* First Line */}
-          <h1 className="font-zing text-6xl md:text-8xl lg:text-tiny whitespace-nowrap">
+          <h1 className="font-zing text-6xl md:text-8xl whitespace-nowrap">
             ALBEDO AND
           </h1>
 
           {/* RotatingText Line */}
-          <h1 className="font-zing text-6xl md:text-8xl lg:text-tiny leading-tiny mt-2 flex items-center">
+          <h1 className="font-zing text-6xl md:text-8xl leading-tight mt-2 flex items-center">
             THE
             <RotatingText
               texts={["CLOUD", "WALKER"]}
@@ -53,9 +53,9 @@ export default function Hero() {
         </div>
 
         {/* === Right Group === */}
-        <div className="relative mt-15 lg:mt-35 flex-1 flex justify-center lg:justify-end lg:mr-40 lg:ml-35">
+        <div className="relative mt-15 lg:mt-35 flex-1 flex justify-center lg:justify-end lg:mr-40">
           {/* Eye Image */}
-          <div className="relative w-56 sm:w-56 md:w-70 lg:w-80">
+          <div className="relative w-56 md:w-70 lg:w-80">
             <video
               src="/src/public/hero_eye.webm"
               autoPlay
@@ -67,7 +67,7 @@ export default function Hero() {
             ></video>
 
             {/* Roles List (staircase effect) */}
-            <ul className="absolute top-0 left-20 lg:left-50 md:left-26 flex flex-col min-w-[280px] sm:min-w-[250px] md:min-w-[280px]">
+            <ul className="absolute top-0 left-20 md:left-26 lg:left-50 flex flex-col min-w-[250px] md:min-w-[280px]">
               {roles.map((role, idx) => (
                 <li key={idx} className={role.offset}>
                   <SplitText
@@ -89,8 +89,8 @@ export default function Hero() {
       </div>
 
       {/* === Logo Loop === */}
-      <div className="absolute bottom-15 lg:bottom-20 md:bottom-10 sm:bottom-10 left-0 w-full flex justify-center">
-        <div className="overflow-hidden relative" style={{ height: "48px" }}>
+      <div className="absolute bottom-10 md:bottom-15 lg:bottom-20 left-0 w-full flex justify-center">
+        <div className="overflow-hidden relative h-12">
           <LogoLoop
             width="100%"
             logos={heroLogos}
@@ -98,10 +98,10 @@ export default function Hero() {
             direction="left"
             logoHeight={40}
             gap={80}
-            hoverMode="slow" // replaces pauseOnHover
-            scaleOnHover={true} // same as before
-            fadeOut={true} // same as before
-            fadeOutColor="#0c0b1a" // same as before
+            hoverMode="slow"
+            scaleOnHover={true}
+            fadeOut={true}
+            fadeOutColor="#0c0b1a"
             ariaLabel="Clients"
           />
         </div>

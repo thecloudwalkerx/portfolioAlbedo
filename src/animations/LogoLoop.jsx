@@ -1,3 +1,6 @@
+{
+  /*=========LOGO LOOP=========*/
+}
 import { useCallback, useEffect, useMemo, useRef, useState, memo } from "react";
 
 const ANIMATION_CONFIG = {
@@ -151,7 +154,7 @@ export const LogoLoop = memo(
     width = "100%",
     logoHeight = 28,
     gap = 32,
-    hoverMode, // "pause", "slow", or undefined
+    hoverMode,
     fadeOut = false,
     fadeOutColor,
     scaleOnHover = true,
