@@ -8,6 +8,14 @@ import DeckReveal from "./components/DeckReveal.jsx";
 import DeckContent from "./constant/DeckContents.jsx";
 import ExperimentalSection from "./sections/ExperimentalSection.jsx";
 
+// PLEASE CHANGE THE HEADER TO ZENTRYS HEADER
+// MAKE IT FLOATABLE AND FIX THE BUTTON.
+//
+//     ADD A LOADING SCREEN WHERE THE EYE WILL SHOW
+// CLOSING TO OPENING ANIMATION AND THEN
+// IT WILL HAVE FULL BLACK OVERLAY, THINK OF MORE ANIMATION
+// ADD MORE TAILWIND LIKE ANIMATIONS TO MAKE THE WEBSITE LIVELY
+
 const App = () => {
   return (
     <main>
