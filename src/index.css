@@ -18,6 +18,10 @@ section {
 
 @theme {
     --color-headline: #e4d8ff;
+    --color-gray-900: #0c0b1a;
+    --color-gray-800: #121129;
+
+
 
     --font-zing: 'ZingRust', sans-serif;
 
@@ -33,14 +37,6 @@ section {
     font-style: normal;
 }
 
-@layer components {
-    .text-tiny-sub {
-        font-size: calc(var(--text-tiny) * 1.14);
-        line-height: var(--text-tiny--line-height);
-        letter-spacing: var(--text-tiny--letter-spacing);
-        font-weight: var(--text-tiny--font-weight);
-    }
-}
 
 /*box-shadow: offset-x offset-y blur-radius spread-radius color;*/
 .shadow-deck {
@@ -50,7 +46,7 @@ section {
 }
 
 .floating-nav {
-    @apply fixed inset-0 z-50 bg-black bg-opacity-0 transition-all duration-700 ease-out;
+    @apply fixed inset-0 z-50 bg-black transition-all duration-700 ease-out;
 }
 
 .rounded-bg {

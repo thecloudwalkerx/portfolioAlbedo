@@ -26,14 +26,14 @@ export default function AboutMe() {
             blurStrength="md"
             blackOpacity={0.3}
             animationSpeed={0.25}
-            cardColor="bg-gray-100"
-            collapsedTitleColor="text-blue-700"
-            collapsedDescriptionColor="text-gray-500"
+            cardColor="bg-gray-900"
+            collapsedTitleColor="text-violet-400"
+            collapsedDescriptionColor="#ececec"
             collapsedFont="font-medium"
-            expandedTitleColor="text-red-600"
-            expandedDescriptionColor="text-gray-700"
+            expandedTitleColor="text-violet-500"
+            expandedDescriptionColor="#ececec"
             expandedFont="font-bold"
-            gapBetweenCards="gap-1"
+            gapBetweenCards="gap-0"
           />
         </div>
 
@@ -66,7 +66,7 @@ export default function AboutMe() {
         rounded
         animationConfig={{ stiffness: 200, damping: 20 }}
         backgroundColor="#e4d8ff"
-        offset="1225"
+        offset="2225"
       >
         <DeckContent />
       </DeckReveal>

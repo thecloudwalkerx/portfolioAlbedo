@@ -38,7 +38,7 @@ export default function ExpandableCards({
   expandedTitleColor = "text-neutral-700 dark:text-neutral-200",
   expandedDescriptionColor = "text-neutral-600 dark:text-neutral-400",
   expandedFont = "font-bold",
-  gapBetweenCards = "gap-4", // New prop to control spacing
+  gapBetweenCards = "gap-4",
 }) {
   const [active, setActive] = useState(null);
   const ref = useRef(null);
@@ -84,6 +84,7 @@ export default function ExpandableCards({
                 cardColor,
               )}
             >
+              {/* Image */}
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 <img
                   src={active.src}
@@ -91,20 +92,42 @@ export default function ExpandableCards({
                   className="w-full h-80 object-cover object-top sm:rounded-tl-lg sm:rounded-tr-lg"
                 />
               </motion.div>
-              <div className="p-4 flex flex-col gap-4">
-                <motion.h3
-                  layoutId={`title-${active.title}-${id}`}
-                  className={`${expandedFont} ${expandedTitleColor}`}
-                >
-                  {active.title}
-                </motion.h3>
-                <motion.p
-                  layoutId={`description-${active.description}-${id}`}
-                  className={`${expandedFont} ${expandedDescriptionColor}`}
-                >
-                  {active.description}
-                </motion.p>
 
+              {/* Horizontal layout: title/subtitle on left, button aligned with title */}
+              <div className="p-4 flex flex-col gap-4">
+                <div className="flex items-start justify-between md:flex-row md:items-center">
+                  {/* Texts */}
+                  <div className="flex flex-col gap-2 md:flex-1">
+                    <motion.h3
+                      layoutId={`title-${active.title}-${id}`}
+                      className={`${expandedFont} ${expandedTitleColor}`}
+                    >
+                      {active.title}
+                    </motion.h3>
+                    <motion.p
+                      layoutId={`description-${active.description}-${id}`}
+                      className={`${expandedFont} ${expandedDescriptionColor}`}
+                    >
+                      {active.description}
+                    </motion.p>
+                  </div>
+
+                  {/* Button aligned with title */}
+                  {active.ctaLink && (
+                    <div className="flex-shrink-0 md:ml-4 mt-2 md:mt-0">
+                      <NavButton
+                        id={`cta-${active.title}`}
+                        title={active.buttonText || active.ctaText || "Action"}
+                        containerClass="w-max"
+                        rightIcon={null}
+                        leftIcon={null}
+                        onClick={() => window.open(active.ctaLink, "_blank")}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Additional content */}
                 {active.content && (
                   <motion.div
                     className={`overflow-auto max-h-40 md:max-h-fit ${expandedDescriptionColor}`}
@@ -125,7 +148,7 @@ export default function ExpandableCards({
       <ul
         className={cn(
           "max-w-2xl mx-auto w-full grid",
-          "grid-cols-3 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-1", // 2 columns on small devices, 1 on medium+
+          "grid-cols-3 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-1",
           gapBetweenCards,
         )}
       >
@@ -133,12 +156,10 @@ export default function ExpandableCards({
           <motion.li
             key={item.title}
             layoutId={`card-${item.title}-${id}`}
-            className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+            className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-gray-800 rounded-xl cursor-pointer"
+            onClick={() => setActive(item)} // <-- move onClick here
           >
-            <div
-              className="flex gap-4 flex-col md:flex-row items-center"
-              onClick={() => setActive(item)}
-            >
+            <div className="flex gap-4 flex-col md:flex-row items-center w-full">
               {item.src && (
                 <motion.img
                   layoutId={`image-${item.title}-${id}`}
@@ -147,7 +168,7 @@ export default function ExpandableCards({
                   className="h-20 w-20 md:h-14 md:w-14 rounded-lg object-cover"
                 />
               )}
-              <div>
+              <div className="flex-1">
                 <motion.h3
                   layoutId={`title-${item.title}-${id}`}
                   className={`${collapsedFont} ${collapsedTitleColor} text-center md:text-left`}
@@ -164,17 +185,6 @@ export default function ExpandableCards({
                 )}
               </div>
             </div>
-
-            {item.ctaLink && (
-              <NavButton
-                id={`cta-${item.title}`}
-                title={item.buttonText || item.ctaText || "Action"}
-                containerClass="mt-2 w-max"
-                rightIcon={null} // optional, can pass an icon component
-                leftIcon={null} // optional
-                onClick={() => window.open(item.ctaLink, "_blank")}
-              />
-            )}
           </motion.li>
         ))}
       </ul>

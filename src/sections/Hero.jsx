@@ -44,7 +44,10 @@ export default function Hero() {
                 ALBEDO AND
               </h1>
 
-              <h1 className="relative top-15 lg:top-0 md:left-10 lg:left-10 font-zing text-7xl sm:text-6xl md:text-8xl lg:text-9xl lg:flex lg:items-center md:flex md:items-center md:-mt-3 lg:-mt-5">
+              <h1
+                className="relative top-15 lg:top-0
+               md:left-10 lg:left-10 font-zing text-7xl sm:text-6xl md:text-8xl lg:text-9xl lg:flex lg:items-center md:flex md:items-center md:-mt-3 lg:-mt-5"
+              >
                 THE
                 <RotatingText
                   texts={["CLOUD", "WALKER"]}
@@ -67,7 +70,7 @@ export default function Hero() {
             <p className="relative z-10 max-w-full lg:max-w-[70%] text-base sm:text-lg leading-relaxed mt-6">
               Greetings, I am Albedo. I serve as a Senior Visual Artist and a
               Frontend Developer. Verily, I am also an aspiring Security
-              Engineer.
+              Engineer. Come let's a walk!
             </p>
 
             <div className="relative z-10 mt-5">
