@@ -1,3 +1,4 @@
+// AboutMe.jsx
 "use client";
 import React from "react";
 import ExpandableCards from "../components/ExpandableCards.jsx";
@@ -9,7 +10,7 @@ export default function AboutMe() {
   return (
     <section
       id="about"
-      className="relative w-full h-[900px] text-headline overflow-visible"
+      className="relative w-full h-[1650px] text-headline overflow-visible"
     >
       {/* Two-column container */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full lg:px-16 lg:py-20 relative">
@@ -60,12 +61,12 @@ export default function AboutMe() {
       </div>
 
       <DeckReveal
-        height="810px"
+        height="200vh"
         width="100%"
         rounded
-        animationConfig={{ stiffness: 220, damping: 50 }}
+        animationConfig={{ stiffness: 200, damping: 20 }}
         backgroundColor="#e4d8ff"
-        offset="800"
+        offset="1225"
       >
         <DeckContent />
       </DeckReveal>

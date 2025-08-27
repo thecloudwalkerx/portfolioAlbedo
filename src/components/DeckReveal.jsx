@@ -1,3 +1,4 @@
+// DeckReveal.jsx
 "use client";
 import React, { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
@@ -20,13 +21,13 @@ export default function DeckReveal({
 
   // Convert offset to a proper upward movement
   // Start at 0% and move upward by offset
-  const rawY = useTransform(scrollYProgress, [0, 1], ["0%", `-${offset}`]);
+  const rawY = useTransform(scrollYProgress, [0, 1], [`0%`, `-${offset}`]);
   const y = useSpring(rawY, animationConfig);
 
   const borderRadius = rounded ? "1.5rem" : "0";
 
   return (
-    <section className="relative w-full h-60 flex justify-center items-center overflow-visible z-[20] lg:mt-70 md:mt-0 sm:mt-0 mt-0">
+    <section className="relative w-full h-[200vh] flex justify-center items-center overflow-visible z-[20]">
       <motion.div
         ref={ref}
         style={{ y, height, width, borderRadius, backgroundColor }}

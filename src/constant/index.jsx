@@ -12,6 +12,8 @@ export const roles = [
   { text: "• Senior Visual Artist", offset: "ml-8" },
   { text: "• UI/UX Designer", offset: "ml-16" },
   { text: "• Web Developer", offset: "ml-24" },
+  { text: "• Web Developer", offset: "ml-30" },
+  { text: "• Web Developer", offset: "ml-38" },
 ];
 
 export const navLinks = [

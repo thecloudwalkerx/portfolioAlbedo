@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { myItems } from "/src/constant/index.jsx";
-import Button from "/src/components/Button";
+import NavButton from "/src/components/NavButton";
 
 function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -166,12 +166,14 @@ export default function ExpandableCards({
             </div>
 
             {item.ctaLink && (
-              <Button
+              <NavButton
+                id={`cta-${item.title}`}
+                title={item.buttonText || item.ctaText || "Action"}
+                containerClass="mt-2 w-max"
+                rightIcon={null} // optional, can pass an icon component
+                leftIcon={null} // optional
                 onClick={() => window.open(item.ctaLink, "_blank")}
-                className="mt-2 w-max"
-              >
-                {item.buttonText || item.ctaText || "Action"}
-              </Button>
+              />
             )}
           </motion.li>
         ))}

@@ -21,11 +21,9 @@ section {
 
     --font-zing: 'ZingRust', sans-serif;
 
-    --text-tiny: 7.5rem;
-    --text-tiny--line-height: 7rem;
-    --text-tiny--letter-spacing: 0.2rem;
-    --text-tiny--font-weight: 500;
-
+    --text-herohead: 150px;
+    --text-herohead--line-height: 115px;
+    --text-herohead--letter-spacing: -2px;
 }
 
 @font-face {
@@ -49,6 +47,17 @@ section {
     box-shadow: 0 -20px 630px -2px rgba(0, 0, 0, 0.3),
                 0 20px 0px 0px rgba(0, 0, 0, 0.0);
 
+}
+
+.floating-nav {
+    @apply fixed inset-0 z-50 bg-black bg-opacity-0 transition-all duration-700 ease-out;
+}
+
+.rounded-bg {
+    background-color: rgba(0, 0, 0, 0.3); /* black with 50% opacity */
+    border-radius: 12px;                  /* makes corners rounded */
+    padding: 10px 15px;                   /* spacing around text */
+    color: #e4d8ff;                         /* text color */
 }
 
 /** {*/
