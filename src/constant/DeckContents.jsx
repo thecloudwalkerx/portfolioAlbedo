@@ -1,60 +1,17 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
+import SwirlAnimation from "../animations/SwirlText.jsx";
 import CollapsedCards from "../components/CollapsedCards.jsx";
-import { myItems } from "../constant/index.jsx";
-import DeckReveal from "../components/DeckReveal.jsx";
-import DeckContent from "../constant/DeckContents.jsx";
-import AboutTheCloud from "../animations/AboutTheCloud.jsx";
 
-export default function AboutMe() {
-  const [burstingCard, setBurstingCard] = useState(null);
-
+export default function DeckContent() {
   return (
-    <section
-      id="about"
-      className="relative w-full min-h-[1650px] text-headline overflow-visible"
-    >
-      {/* Two-column container */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full lg:px-16 lg:py-20 relative">
-        {/* Left column: text + cards (desktop & tablet) */}
-        <div className="relative flex flex-col items-start justify-start w-full lg:top-15 left-4 sm:left-8 pr-4 order-2 lg:order-1">
-          <p className="pb-8">
-            This is all I ever wanted! I will show them, I will show them
-            all!...
-          </p>
-
-          {/* Desktop & tablet cards */}
-          <div className="hidden md:block w-full">
-            <CollapsedCards items={myItems} burstAnimationDuration={0.5} />
-          </div>
-
-          {/* Mobile spacer to push down DeckReveal */}
-          {/* Only visible on small devices where collapsed cards are inside DeckContent */}
-          <div className="block md:hidden h-0 sm:h-0" />
-        </div>
-
-        {/* Right column: animated headline + image */}
-        <AboutTheCloud />
-      </div>
-
-      {/* DeckReveal */}
-      <div className="mt-4 md:mt-0">
-        <DeckReveal
-          height="200vh"
-          width="100%"
-          rounded
-          animationConfig={{ stiffness: 200, damping: 20 }}
-          backgroundColor="#e4d8ff"
-          offset="1000"
-        >
-          <DeckContent
-            myItems={myItems}
-            burstingCard={burstingCard}
-            setBurstingCard={setBurstingCard}
-          />
-        </DeckReveal>
-      </div>
+    <section className="p-10 flex flex-col gap-6 text-8xl text-black font-zing">
+      <CollapsedCards />
+      <SwirlAnimation
+        text="This is animated <br /> across two lines"
+        duration={0.8} // each word/char animates 0.8s
+        stagger={0.05} // words/characters start 0.05s apart
+        mode="line" //line, word
+      />
     </section>
   );
 }

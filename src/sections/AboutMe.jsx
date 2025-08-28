@@ -8,8 +8,6 @@ import DeckContent from "../constant/DeckContents.jsx";
 import AboutTheCloud from "../animations/AboutTheCloud.jsx";
 
 export default function AboutMe() {
-  const [burstingCard, setBurstingCard] = useState(null);
-
   return (
     <section
       id="about"
@@ -26,7 +24,11 @@ export default function AboutMe() {
 
           {/* Desktop & tablet cards */}
           <div className="hidden md:block w-full">
-            <CollapsedCards items={myItems} burstAnimationDuration={0.5} />
+            <CollapsedCards
+              items={myItems}
+              burstAnimationDuration={0.5}
+              disableLayout={false} // full motion
+            />
           </div>
         </div>
 
@@ -34,21 +36,17 @@ export default function AboutMe() {
         <AboutTheCloud />
       </div>
 
-      {/*<DeckReveal*/}
-      {/*  height="200vh"*/}
-      {/*  width="100%"*/}
-      {/*  rounded*/}
-      {/*  animationConfig={{ stiffness: 200, damping: 20 }}*/}
-      {/*  backgroundColor="#e4d8ff"*/}
-      {/*  offset="1000"*/}
-      {/*>*/}
-      {/*  /!* Mobile CollapsedCards + other deck content *!/*/}
-      {/*  <DeckContent*/}
-      {/*    myItems={myItems}*/}
-      {/*    burstingCard={burstingCard}*/}
-      {/*    setBurstingCard={setBurstingCard}*/}
-      {/*  />*/}
-      {/*</DeckReveal>*/}
+      {/* DeckReveal */}
+      <DeckReveal
+        height="200vh"
+        width="100%"
+        rounded
+        animationConfig={{ stiffness: 200, damping: 20 }}
+        backgroundColor="#e4d8ff"
+        offset="1000"
+      >
+        <DeckContent myItems={myItems} />
+      </DeckReveal>
     </section>
   );
 }
