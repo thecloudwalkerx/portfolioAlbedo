@@ -1,7 +1,7 @@
-import Button from "/src/components/Button.jsx";
+import EyeButton from "/src/components/EyeButton.jsx";
 import RotatingText from "/src/animations/RotatingText.jsx";
 import SplitText from "/src/animations/SplitText.jsx";
-import LogoLoop from "/src/animations/LogoLoop.jsx";
+import LogoLoop from "/src/components/LogoLoop.jsx";
 import { heroLogos } from "../constant/index.jsx";
 import { roles } from "../constant/index.jsx";
 import { useEffect, useRef } from "react";
@@ -72,7 +72,7 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Details + Button below */}
+          {/* Details + EyeButton below */}
           <div className="relative top-25 md:top-35 lg:top-0">
             <p className="relative font-nunito z-10 max-w-full lg:max-w-[70%] text-base sm:text-lg leading-relaxed mt-6">
               Greetings, I am Albedo. I am an undergraduate computer science
@@ -84,7 +84,7 @@ export default function Hero() {
             </p>
 
             <div className="relative z-10 mt-5">
-              <Button onClick={handleHeroButtonClick}>Learn More</Button>
+              <EyeButton onClick={handleHeroButtonClick}>Learn More</EyeButton>
             </div>
           </div>
         </div>

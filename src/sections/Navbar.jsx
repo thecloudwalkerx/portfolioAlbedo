@@ -9,7 +9,7 @@ import AudioButton from "/src/components/AudioButton";
 
 const navItems = ["Albedo", "About", "Projects", "Skills", "Contact"];
 
-const NavBar = ({
+const Navbar = ({
   hideDuration = 0.3,
   showDuration = 0.3,
   hideDelay = 0,
@@ -83,7 +83,7 @@ const NavBar = ({
         <nav className="flex w-full items-center justify-between p-4">
           {/* Logo + Product button */}
           <div className="flex items-center gap-7 font-nunito">
-            <img src="/src/public/albedo.ico" alt="logo" className="w-10" />
+            <img src="/albedo.ico" alt="logo" className="w-10" />
             <NavButton
               id="product-button"
               title="Hire Me!"
@@ -122,4 +122,4 @@ const NavBar = ({
   );
 };
 
-export default NavBar;
+export default Navbar;

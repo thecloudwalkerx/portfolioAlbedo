@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Hero from "./sections/Hero.jsx";
-import NavBar from "./components/NavBar.jsx";
-import Grain from "./components/Grain.jsx";
-import DarkVeil from "./components/DarkVeil.jsx";
+import Navbar from "./sections/Navbar.jsx";
+import Grain from "./backgrounds/Grain.jsx";
+import DarkVeil from "./backgrounds/DarkVeil.jsx";
 import AboutMe from "./sections/AboutMe.jsx";
-import ExperimentalSection from "./sections/ExperimentalSection.jsx";
+import Skills from "./sections/Skills.jsx";
 import Loader from "./sections/Loader.jsx";
-import GalaxyParticles from "./components/GalaxyParticles.jsx";
+import GalaxyParticles from "./backgrounds/GalaxyParticles.jsx";
 
 const App = () => {
   const [loaderFinished, setLoaderFinished] = useState(false);
@@ -78,7 +78,7 @@ const App = () => {
 
       {/* Floating header, only after loader */}
       {loaderFinished && (
-        <NavBar
+        <Navbar
           hideDuration={0.2}
           showDuration={0.3}
           hideDelay={0.2}
@@ -105,7 +105,7 @@ const App = () => {
       >
         <Hero />
         <AboutMe />
-        <ExperimentalSection />
+        <Skills />
       </div>
     </main>
   );

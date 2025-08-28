@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import GalaxyParticles from "../components/GalaxyParticles.jsx";
+import GalaxyParticles from "../backgrounds/GalaxyParticles.jsx";
 
-export default function ExperimentalSection() {
+export default function Skills() {
   return (
     <section className="relative w-full h-screen bg-gradient-to-r overflow-hidden flex items-center justify-center">
       {/* Foreground content */}

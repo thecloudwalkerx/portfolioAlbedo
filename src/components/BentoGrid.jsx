@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 import { motion, useInView } from "framer-motion";
-import Button from "/src/components/Button";
+import EyeButton from "/src/components/EyeButton";
 import { BentoCards } from "/src/constant/index.jsx";
 
 /* ------------------ BentoTilt ------------------ */
@@ -102,7 +102,7 @@ const BentoCard = ({ src, title, description }) => {
         )}
 
         <div className="relative mt-4 flex justify-start">
-          <Button leftIcon={<TiLocationArrow />} children="Coming Soon" />
+          <EyeButton leftIcon={<TiLocationArrow />} children="Coming Soon" />
         </div>
       </div>
     </div>

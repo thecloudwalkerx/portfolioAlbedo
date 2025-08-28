@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import CollapsedCards from "../components/CollapsedCards.jsx";
 import { myItems } from "../constant/index.jsx";
-import DeckReveal from "../components/DeckReveal.jsx";
+import DeckReveal from "../backgrounds/DeckReveal.jsx";
 import DeckContent from "../constant/DeckContents.jsx";
 import AboutTheCloud from "../animations/AboutTheCloud.jsx";
 

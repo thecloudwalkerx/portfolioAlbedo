@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 
-const Button = ({
+const EyeButton = ({
   children = "Get Started",
   onClick,
   className = "",
@@ -61,4 +61,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default EyeButton;
