@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 
 export default function AboutTheCloud({
@@ -19,28 +19,46 @@ export default function AboutTheCloud({
   const ref = useRef(null);
   const fillControls = useAnimation();
   const strokeControls = useAnimation();
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Original inView check
   const isInView = useInView(ref, { amount: 0.3 });
 
   useEffect(() => {
+    // On mobile, delay animation slightly to prevent early trigger
+    const delay = isMobile ? 300 : 0; // 300ms delay for mobile
+
     if (isInView) {
-      fillControls.start({
-        x: 0,
-        opacity: 1,
-        transition: {
-          type: "spring",
-          stiffness: fillStiffness,
-          damping: fillDamping,
-          mass: fillMass,
-        },
-      });
-      strokeControls.start({
-        opacity: strokeOpacityEnd,
-        transition: {
-          duration: strokeDuration,
-          ease: strokeEase,
-          delay: strokeDelay,
-        },
-      });
+      const timeout = setTimeout(() => {
+        fillControls.start({
+          x: 0,
+          opacity: 1,
+          transition: {
+            type: "spring",
+            stiffness: fillStiffness,
+            damping: fillDamping,
+            mass: fillMass,
+          },
+        });
+        strokeControls.start({
+          opacity: strokeOpacityEnd,
+          transition: {
+            duration: strokeDuration,
+            ease: strokeEase,
+            delay: strokeDelay,
+          },
+        });
+      }, delay);
+
+      return () => clearTimeout(timeout);
     } else {
       fillControls.start({ x: fillX, opacity: fillOpacity });
       strokeControls.start({ opacity: strokeOpacityStart });
@@ -59,6 +77,7 @@ export default function AboutTheCloud({
     strokeDuration,
     strokeEase,
     strokeDelay,
+    isMobile,
   ]);
 
   return (
@@ -67,12 +86,12 @@ export default function AboutTheCloud({
       <img
         src="/src/public/profile_photo.png"
         alt="Background"
-        className="absolute left-35 sm:top-36 md:top-40 lg:top-10 w-40 sm:w-52 md:w-64 lg:w-110 z-10"
+        className="absolute top-18 left-20 md:left-10 sm:top-36 md:top-13 lg:top-10 w-75 sm:w-52 md:w-95 lg:w-110 z-10"
       />
 
       {/* Animated fill text */}
       <motion.h1
-        className="absolute lg:top-25 left-8 sm:top-28 sm:left-60 text-2xl sm:text-4xl md:text-5xl lg:text-8xl font-zing text-headline z-0 pointer-events-none"
+        className="absolute text-[90px] top-25 leading-20 md:top-0 md:left-20 lg:top-25 left-8 sm:top-28 sm:left-60 text-2xl sm:text-4xl md:text-[90px] lg:text-8xl font-zing text-headline z-0 pointer-events-none"
         initial={{ x: fillX, opacity: fillOpacity }}
         animate={fillControls}
       >
@@ -81,12 +100,12 @@ export default function AboutTheCloud({
 
       {/* Stroke text fading in */}
       <motion.div
-        className="absolute lg:top-25 left-8 sm:top-28 sm:left-60 z-20 pointer-events-none"
+        className="absolute top-25 md:top-0 md:left-20 lg:top-25 left-8 sm:top-28 sm:left-60 z-20 pointer-events-none"
         initial={{ opacity: strokeOpacityStart }}
         animate={strokeControls}
       >
         <h1
-          className="text-2xl sm:text-4xl md:text-5xl lg:text-8xl font-zing text-transparent"
+          className="text-[90px] leading-20 sm:text-4xl md:text-[90px] lg:text-8xl font-zing text-transparent"
           style={{ WebkitTextStroke: "0.5px #e4d8ff" }}
         >
           ABOUT THE CLOUD

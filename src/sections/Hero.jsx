@@ -42,7 +42,7 @@ export default function Hero() {
         top-10 sm:top-5
         w-[220px] sm:w-[280px] md:w-[280px] lg:w-[280px]
         opacity-85
-        lg:left-[54%] md:left-[74%] lg:top-[-20px] lg:translate-x-0
+        lg:left-[58%] md:left-[74%] lg:top-[-20px] lg:translate-x-0
       "
             />
 
@@ -101,7 +101,7 @@ export default function Hero() {
       </div>
 
       {/* === Logo Loop pinned at bottom === */}
-      <div className="absolute w-full bottom-0 pb-20">
+      <div className="absolute w-full bottom-0 pb-20 md:pb-30">
         <LogoLoop
           width="100%"
           logos={heroLogos}

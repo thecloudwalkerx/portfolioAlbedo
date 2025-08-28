@@ -56,6 +56,10 @@ section {
     color: #e4d8ff;                         /* text color */
 }
 
-/** {*/
-/*    outline: 1px solid rgba(255, 0, 0, 0.3) !important;*/
-/*}*/
+.translate-offset {
+    transform: translateY(200px);
+}
+
+* {
+    outline: 1px solid rgba(255, 0, 0, 0.3) !important;
+}

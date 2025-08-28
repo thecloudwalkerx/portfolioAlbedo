@@ -13,10 +13,10 @@ function cn(...inputs) {
 
 // ----------------- CONFIGURABLE CLASSES ----------------- //
 const UL_CLASSES =
-  "max-w-2xl mx-auto w-full grid grid-cols-1 gap-1 sm:gap-2 md:gap-3"; // Grid gap responsive
+  "max-w-2xl mx-auto w-full grid grid-cols-1 gap-1 sm:gap-2 md:gap-1"; // Grid gap responsive
 const LI_CLASSES =
   "flex flex-row justify-start items-center hover:bg-neutral-50 dark:hover:bg-gray-800 rounded-xl cursor-pointer"; // Base card styling
-const PADDING_CLASSES = "px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3"; // Responsive padding inside card
+const PADDING_CLASSES = "px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-1"; // Responsive padding inside card
 const IMAGE_CLASSES =
   "h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 rounded-lg object-cover flex-shrink-0"; // Responsive image sizes
 const TITLE_CLASSES =
