@@ -138,8 +138,9 @@ export default function DarkVeil({
   }, [color, speed, attraction, randomness, blobGap]);
 
   return (
+    //absolute to make it stay 1 page, fixed to all
     <div
-      className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
+      className="fixed inset-0 z-0 pointer-events-none overflow-hidden"
       style={{
         overflow: "hidden", // prevents x-axis scroll
         WebkitMaskImage:

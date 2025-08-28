@@ -16,11 +16,8 @@ function cn(...classes) {
 
 const RotatingText = forwardRef((props, ref) => {
   const {
-    texts,
+    texts = [],
     transition = { type: "spring", damping: 25, stiffness: 300 },
-    initial = { y: "100%", opacity: 0 },
-    animate = { y: 0, opacity: 1 },
-    exit = { y: "-120%", opacity: 0 },
     animatePresenceMode = "wait",
     animatePresenceInitial = false,
     rotationInterval = 2000,
@@ -29,25 +26,29 @@ const RotatingText = forwardRef((props, ref) => {
     loop = true,
     auto = true,
     splitBy = "characters",
-    onNext,
     mainClassName,
     splitLevelClassName,
     elementLevelClassName,
+    tiltAngle = 5, // maximum tilt in degrees
+    tiltDirection = "left", // "right" = clockwise, "left" = counterclockwise
+    onNext,
     ...rest
   } = props;
 
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
+  const getTilt = (angle) => (tiltDirection === "left" ? -angle : angle);
+
   const splitIntoCharacters = (text) => {
     if (typeof Intl !== "undefined" && Intl.Segmenter) {
       const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
-      return Array.from(segmenter.segment(text), (segment) => segment.segment);
+      return Array.from(segmenter.segment(text), (s) => s.segment);
     }
     return Array.from(text);
   };
 
   const elements = useMemo(() => {
-    const currentText = texts[currentTextIndex];
+    const currentText = texts[currentTextIndex] || "";
     if (splitBy === "characters") {
       const words = currentText.split(" ");
       return words.map((word, i) => ({
@@ -67,7 +68,6 @@ const RotatingText = forwardRef((props, ref) => {
         needsSpace: i !== arr.length - 1,
       }));
     }
-
     return currentText.split(splitBy).map((part, i, arr) => ({
       characters: [part],
       needsSpace: i !== arr.length - 1,
@@ -107,9 +107,7 @@ const RotatingText = forwardRef((props, ref) => {
           ? 0
           : currentTextIndex
         : currentTextIndex + 1;
-    if (nextIndex !== currentTextIndex) {
-      handleIndexChange(nextIndex);
-    }
+    if (nextIndex !== currentTextIndex) handleIndexChange(nextIndex);
   }, [currentTextIndex, texts.length, loop, handleIndexChange]);
 
   const previous = useCallback(() => {
@@ -119,37 +117,27 @@ const RotatingText = forwardRef((props, ref) => {
           ? texts.length - 1
           : currentTextIndex
         : currentTextIndex - 1;
-    if (prevIndex !== currentTextIndex) {
-      handleIndexChange(prevIndex);
-    }
+    if (prevIndex !== currentTextIndex) handleIndexChange(prevIndex);
   }, [currentTextIndex, texts.length, loop, handleIndexChange]);
 
   const jumpTo = useCallback(
     (index) => {
       const validIndex = Math.max(0, Math.min(index, texts.length - 1));
-      if (validIndex !== currentTextIndex) {
-        handleIndexChange(validIndex);
-      }
+      if (validIndex !== currentTextIndex) handleIndexChange(validIndex);
     },
     [texts.length, currentTextIndex, handleIndexChange],
   );
 
   const reset = useCallback(() => {
-    if (currentTextIndex !== 0) {
-      handleIndexChange(0);
-    }
+    if (currentTextIndex !== 0) handleIndexChange(0);
   }, [currentTextIndex, handleIndexChange]);
 
-  useImperativeHandle(
-    ref,
-    () => ({
-      next,
-      previous,
-      jumpTo,
-      reset,
-    }),
-    [next, previous, jumpTo, reset],
-  );
+  useImperativeHandle(ref, () => ({ next, previous, jumpTo, reset }), [
+    next,
+    previous,
+    jumpTo,
+    reset,
+  ]);
 
   useEffect(() => {
     if (!auto) return;
@@ -181,11 +169,30 @@ const RotatingText = forwardRef((props, ref) => {
           )}
           layout
           aria-hidden="true"
+          initial={{
+            opacity: 0,
+            y: "100%",
+            filter: "blur(4px)",
+            rotateZ: getTilt(tiltAngle),
+          }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)", rotateZ: 0 }}
+          exit={{
+            opacity: 0,
+            y: "-120%",
+            filter: "blur(4px)",
+            rotateZ: getTilt(-tiltAngle),
+          }}
+          transition={{
+            ...transition,
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
           {elements.map((wordObj, wordIndex, array) => {
-            const previousCharsCount = array
+            const prevCharsCount = array
               .slice(0, wordIndex)
               .reduce((sum, word) => sum + word.characters.length, 0);
+
             return (
               <span
                 key={wordIndex}
@@ -194,18 +201,35 @@ const RotatingText = forwardRef((props, ref) => {
                 {wordObj.characters.map((char, charIndex) => (
                   <motion.span
                     key={charIndex}
-                    initial={initial}
-                    animate={animate}
-                    exit={exit}
+                    initial={{
+                      y: "100%",
+                      opacity: 0,
+                      filter: "blur(4px)",
+                      rotateZ: getTilt(tiltAngle),
+                    }}
+                    animate={{
+                      y: 0,
+                      opacity: 1,
+                      filter: "blur(0px)",
+                      rotateZ: 0,
+                    }}
+                    exit={{
+                      y: "-120%",
+                      opacity: 0,
+                      filter: "blur(4px)",
+                      rotateZ: getTilt(-tiltAngle),
+                    }}
                     transition={{
                       ...transition,
                       delay: getStaggerDelay(
-                        previousCharsCount + charIndex,
+                        prevCharsCount + charIndex,
                         array.reduce(
                           (sum, word) => sum + word.characters.length,
                           0,
                         ),
                       ),
+                      duration: 0.8,
+                      ease: [0.22, 1, 0.36, 1],
                     }}
                     className={cn("inline-block", elementLevelClassName)}
                   >

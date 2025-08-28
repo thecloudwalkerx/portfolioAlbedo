@@ -4,11 +4,17 @@ import SplitText from "/src/animations/SplitText.jsx";
 import LogoLoop from "/src/animations/LogoLoop.jsx";
 import { heroLogos } from "../constant/index.jsx";
 import { roles } from "../constant/index.jsx";
+import { useEffect, useRef } from "react";
 
 export default function Hero() {
+  const eyeRef = useRef(null);
   const handleHeroButtonClick = () => console.log("Hero button clicked!");
   const handleAnimationComplete = () =>
     console.log("All letters have animated!");
+
+  useEffect(() => {
+    window.heroEye = eyeRef.current; // expose to loader
+  }, []);
 
   return (
     <section
@@ -22,6 +28,7 @@ export default function Hero() {
           <div className="relative w-full">
             {/* Eye Video (absolute behind headlines) */}
             <video
+              ref={eyeRef}
               src="/src/public/hero_eye.webm"
               autoPlay
               muted
@@ -33,7 +40,7 @@ export default function Hero() {
         z-0
         left-1/2 -translate-x-1/2
         top-10 sm:top-5
-        w-[220px] sm:w-[280px] md:w-[280px] lg:w-[350px]
+        w-[220px] sm:w-[280px] md:w-[280px] lg:w-[280px]
         opacity-85
         lg:left-[54%] md:left-[74%] lg:top-[-20px] lg:translate-x-0
       "
@@ -58,8 +65,8 @@ export default function Hero() {
                   exit={{ y: "150%" }}
                   staggerDuration={0.015}
                   splitLevelClassName="overflow-hidden md:ml-5 lg:ml-5"
-                  transition={{ type: "spring", damping: 50, stiffness: 400 }}
-                  rotationInterval={2500}
+                  transition={{ type: "spring", damping: 60, stiffness: 300 }}
+                  rotationInterval={4000}
                 />
               </h1>
             </div>
