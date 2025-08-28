@@ -5,9 +5,9 @@ import { useEffect, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 
 import NavButton from "/src/components/NavButton";
-import AudioButton from "/src/components/AudioButton"; // new import
+import AudioButton from "/src/components/AudioButton";
 
-const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
+const navItems = ["Albedo", "About", "Projects", "Skills", "Contact"];
 
 const NavBar = ({
   hideDuration = 0.3,
@@ -26,7 +26,6 @@ const NavBar = ({
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isTop, setIsTop] = useState(true);
 
-  // Scroll handling with top detection
   useEffect(() => {
     setIsTop(currentScrollY < 50);
 
@@ -44,7 +43,6 @@ const NavBar = ({
     setLastScrollY(currentScrollY);
   }, [currentScrollY, lastScrollY]);
 
-  // Smooth GSAP animation
   useEffect(() => {
     if (!navContainerRef.current) return;
 
@@ -84,24 +82,24 @@ const NavBar = ({
       <header className="absolute top-1/2 w-full -translate-y-1/2">
         <nav className="flex w-full items-center justify-between p-4">
           {/* Logo + Product button */}
-          <div className="flex items-center gap-7">
+          <div className="flex items-center gap-7 font-nunito">
             <img src="/src/public/albedo.ico" alt="logo" className="w-10" />
             <NavButton
               id="product-button"
-              title="Products"
+              title="Hire Me!"
               rightIcon={<TiLocationArrow />}
-              containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
+              containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1 font-nunito"
             />
           </div>
 
           {/* Nav links + AudioButton */}
           <div className="flex h-full items-center gap-6">
-            <div className="hidden md:flex gap-6">
+            <div className="hidden md:flex gap-6 font-nunito">
               {navItems.map((item, index) => (
                 <a
                   key={index}
                   href={`#${item.toLowerCase()}`}
-                  className="relative text-white font-medium transition-all duration-200 hover:text-violet-400 hover:scale-110"
+                  className="relative text-white font-medium transition-all duration-200 hover:text-violet-400 hover:scale-110 font-nunito"
                 >
                   {item}
                 </a>
@@ -109,14 +107,13 @@ const NavBar = ({
             </div>
 
             {/* Integrated AudioButton */}
-
             <AudioButton
               audioSrc="/src/public/background_music.mp3"
               bars={3}
               height={14}
               animationSpeed={2}
               fadeDuration={500}
-              volume={0.5} // max volume 60%
+              volume={0.5} // max volume 50%
             />
           </div>
         </nav>

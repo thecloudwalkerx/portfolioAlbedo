@@ -6,6 +6,7 @@ import DarkVeil from "./components/DarkVeil.jsx";
 import AboutMe from "./sections/AboutMe.jsx";
 import ExperimentalSection from "./sections/ExperimentalSection.jsx";
 import Loader from "./sections/Loader.jsx";
+import GalaxyParticles from "./components/GalaxyParticles.jsx";
 
 const App = () => {
   const [loaderFinished, setLoaderFinished] = useState(false);
@@ -37,6 +38,19 @@ const App = () => {
 
   return (
     <main className="relative overflow-x-hidden">
+      {/* Background particles */}
+      <GalaxyParticles
+        className="fixed inset-0 w-full h-full z-0 pointer-events-none"
+        particleCount={1500}
+        particleSpread={25}
+        speed={0.2}
+        particleBaseSize={120}
+        sizeRandomness={1.5}
+        particleColors={["#ffffff", "#ffeedd", "#99bbff", "#aaddff", "#ffccaa"]}
+        moveParticlesOnHover={true}
+        particleHoverFactor={2}
+      />
+
       {/* Always visible visual effects */}
       <Grain
         speed={0.4}
@@ -62,18 +76,8 @@ const App = () => {
         />
       )}
 
-      {/* Page content that will blur-reveal */}
-      <div
-        className={`transition-opacity duration-1000 ease-out ${
-          showContent ? "opacity-100" : "opacity-0"
-        }`}
-        style={{
-          filter: showContent ? "blur(0px)" : "blur(20px)",
-          transition: "filter 1s ease-out, opacity 1s ease-out",
-          position: "relative",
-          zIndex: 10,
-        }}
-      >
+      {/* Floating header, only after loader */}
+      {loaderFinished && (
         <NavBar
           hideDuration={0.2}
           showDuration={0.3}
@@ -85,6 +89,20 @@ const App = () => {
           outlineWidth="1px"
           outlineColor="#121129"
         />
+      )}
+
+      {/* Page content that will blur-reveal */}
+      <div
+        className={`transition-opacity duration-1000 ease-out ${
+          showContent ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          filter: showContent ? "blur(0px)" : "blur(20px)",
+          transition: "filter 1s ease-out, opacity 1s ease-out",
+          position: "relative",
+          zIndex: 0,
+        }}
+      >
         <Hero />
         <AboutMe />
         <ExperimentalSection />

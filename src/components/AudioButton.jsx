@@ -10,10 +10,12 @@ const AudioButton = ({
   animationSpeed = 1.5,
   fadeDuration = 1000, // fade duration in ms
   volume = 1, // max volume (0 to 1)
+  autoPlay = false, // new prop for scroll-triggered playback
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
+  // Fade in/out helper
   const fadeAudio = (fadeIn = true) => {
     if (!audioRef.current) return;
 
@@ -24,7 +26,6 @@ const AudioButton = ({
     const volumeStep = fadeIn ? volume / steps : -audio.volume / steps;
 
     if (fadeIn) audio.volume = 0;
-
     audio.play();
 
     const interval = setInterval(() => {
@@ -39,10 +40,23 @@ const AudioButton = ({
     }, stepTime);
   };
 
+  // Toggle manually via button
   const toggleAudio = () => {
     setIsPlaying((prev) => !prev);
     fadeAudio(!isPlaying);
   };
+
+  // Scroll-triggered playback
+  useEffect(() => {
+    if (autoPlay && !isPlaying) {
+      setIsPlaying(true);
+      fadeAudio(true);
+    } else if (!autoPlay && isPlaying) {
+      setIsPlaying(false);
+      fadeAudio(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoPlay]);
 
   // mirrored bars
   const barIndices = [...Array(bars).keys()];

@@ -2,25 +2,23 @@
 
 import React from "react";
 import SwirlAnimation from "../animations/SwirlText.jsx";
-import CollapsedCards from "../components/CollapsedCards.jsx";
-import BentoGrid from "../components/BentoGrid.jsx"; // <-- import it
+import BentoGrid from "../components/BentoGrid.jsx";
 
 export default function DeckContent() {
   return (
-    <section className="p-10 flex flex-col gap-6 text-black font-zing">
-      {/* Collapsed cards */}
-      {/*<CollapsedCards />*/}
-
+    <section className="p-10 text-2xl flex flex-col gap-6 text-white font-zing">
       {/* Animated text */}
+
       <SwirlAnimation
-        text="This is animated <br /> across two lines"
-        duration={0.8}
+        className="flex text-8xl flex-col gap-6"
+        text="This is animated across two lines"
+        duration={1.2}
         stagger={0.05}
-        mode="line"
+        mode="word"
       />
 
       {/* Bento grid */}
-      <div className="mt-6 w-full">
+      <div id="projects" className="mt-6 w-full">
         <BentoGrid />
       </div>
     </section>

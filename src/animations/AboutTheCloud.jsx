@@ -29,12 +29,10 @@ export default function AboutTheCloud({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Original inView check
   const isInView = useInView(ref, { amount: 0.3 });
 
   useEffect(() => {
-    // On mobile, delay animation slightly to prevent early trigger
-    const delay = isMobile ? 300 : 0; // 300ms delay for mobile
+    const delay = isMobile ? 300 : 0;
 
     if (isInView) {
       const timeout = setTimeout(() => {
@@ -82,11 +80,13 @@ export default function AboutTheCloud({
 
   return (
     <div ref={ref} className="relative w-full h-full flex order-1 lg:order-2">
-      {/* Static background image */}
-      <img
+      {/* Animated image with hover scale */}
+      <motion.img
         src="/src/public/profile_photo.png"
         alt="Background"
         className="absolute top-18 left-20 md:left-10 sm:top-36 md:top-13 lg:top-10 w-75 sm:w-52 md:w-95 lg:w-110 z-10"
+        whileHover={{ scale: 1.02 }} // Slight scale on hover
+        transition={{ type: "spring", stiffness: 50, damping: 12 }} // Smooth spring transition
       />
 
       {/* Animated fill text */}

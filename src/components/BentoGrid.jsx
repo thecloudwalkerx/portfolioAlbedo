@@ -2,10 +2,12 @@
 
 import { useState, useRef } from "react";
 import { TiLocationArrow } from "react-icons/ti";
-import { bentoCards } from "/src/constant/index.jsx";
+import { motion, useInView } from "framer-motion";
+import Button from "/src/components/Button";
+import { BentoCards } from "/src/constant/index.jsx";
 
-// Tilt wrapper
-export const BentoTilt = ({ children, className = "" }) => {
+/* ------------------ BentoTilt ------------------ */
+const BentoTilt = ({ children, className = "" }) => {
   const [transformStyle, setTransformStyle] = useState("");
   const itemRef = useRef(null);
 
@@ -15,10 +17,8 @@ export const BentoTilt = ({ children, className = "" }) => {
       itemRef.current.getBoundingClientRect();
     const relativeX = (event.clientX - left) / width;
     const relativeY = (event.clientY - top) / height;
-
     const tiltX = (relativeY - 0.5) * 5;
     const tiltY = (relativeX - 0.5) * -5;
-
     setTransformStyle(
       `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(.95, .95, .95)`,
     );
@@ -39,96 +39,117 @@ export const BentoTilt = ({ children, className = "" }) => {
   );
 };
 
-// Bento card
-export const BentoCard = ({ src, title, description, isComingSoon }) => {
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [hoverOpacity, setHoverOpacity] = useState(0);
-  const hoverButtonRef = useRef(null);
-
-  const handleMouseMove = (event) => {
-    if (!hoverButtonRef.current) return;
-    const rect = hoverButtonRef.current.getBoundingClientRect();
-    setCursorPosition({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    });
-  };
-
-  const handleMouseEnter = () => setHoverOpacity(1);
-  const handleMouseLeave = () => setHoverOpacity(0);
+/* ------------------ Animated Wrapper ------------------ */
+const AnimatedCardWrapper = ({ children, className = "" }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-100px" });
 
   return (
-    <div className="relative size-full rounded-md overflow-hidden">
-      {/* VIDEO or FALLBACK BACKGROUND */}
+    <motion.div
+      ref={ref}
+      className={className}
+      initial={{ opacity: 0, rotateX: 25, scale: 0.9 }}
+      animate={
+        isInView
+          ? { opacity: 1, rotateX: 0, scale: 1, y: 0 }
+          : { opacity: 0, rotateX: 25, scale: 0.9, y: 50 }
+      }
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+/* ------------------ BentoCard ------------------ */
+const BentoCard = ({ src, title, description }) => {
+  return (
+    <div className="relative w-full h-full rounded-md overflow-hidden group">
       {src ? (
         <video
           src={src}
           loop
           muted
           autoPlay
-          className="absolute left-0 top-0 size-full object-cover object-center"
+          className="absolute top-0 left-0 w-full h-full object-cover"
         />
       ) : (
-        <div className="absolute left-0 top-0 size-full bg-gradient-to-br from-purple-600 via-pink-500 to-red-400" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-600 via-pink-500 to-red-400" />
       )}
 
-      <div className="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
-        <div>
-          <h1 className="bento-title special-font">{title}</h1>
-          {description && (
-            <p className="mt-3 max-w-64 text-xs md:text-base">{description}</p>
-          )}
-        </div>
+      <div className="relative z-10 flex flex-col justify-between w-full h-full p-5 text-blue-50">
+        {(title || description) && (
+          <div>
+            {title && (
+              <h1 className="bento-title special-font relative inline-flex overflow-hidden text-lg md:text-2xl font-bold">
+                {/* First title (goes up) */}
+                <span className="translate-y-0 skew-y-0 transition duration-500 group-hover:-translate-y-[120%] group-hover:skew-y-12">
+                  {title}
+                </span>
+                {/* Second title (comes from down) */}
+                <span className="absolute translate-y-[130%] skew-y-12 transition duration-500 group-hover:translate-y-0 group-hover:skew-y-0">
+                  {title}
+                </span>
+              </h1>
+            )}
 
-        {isComingSoon && (
-          <div
-            ref={hoverButtonRef}
-            onMouseMove={handleMouseMove}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className="border-hsla relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-white/20"
-          >
-            {/* Radial gradient hover effect */}
-            <div
-              className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
-              style={{
-                opacity: hoverOpacity,
-                background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #656fe288, #00000026)`,
-              }}
-            />
-            <TiLocationArrow className="relative z-20" />
-            <p className="relative z-20">coming soon</p>
+            {description && (
+              <p className="mt-3 max-w-full text-xs md:text-base">
+                {description}
+              </p>
+            )}
           </div>
         )}
+
+        <div className="relative mt-4 flex justify-start">
+          <Button leftIcon={<TiLocationArrow />} children="Coming Soon" />
+        </div>
       </div>
     </div>
   );
 };
 
-// Bento Grid
+/* ------------------ BentoGrid ------------------ */
 const BentoGrid = () => {
-  const gridCards = bentoCards.filter((card) => !card.main);
-
   return (
-    <div className="grid h-[135vh] w-full grid-cols-2 grid-rows-3 gap-7">
-      {gridCards.map((card, index) => (
-        <BentoTilt key={index} className={card.className || ""}>
-          {/* Preserve full card logic */}
-          {card.title || card.description ? (
-            <BentoCard {...card} />
-          ) : card.src ? (
-            <video
-              src={card.src}
-              loop
-              muted
-              autoPlay
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div className="h-full w-full bg-gradient-to-br from-purple-600 via-pink-500 to-red-400" />
-          )}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full">
+      {/* Row 1 */}
+      <AnimatedCardWrapper className="lg:col-span-3">
+        <BentoTilt className="w-full h-64 md:h-80 lg:h-96">
+          <BentoCard {...BentoCards[0]} />
         </BentoTilt>
-      ))}
+      </AnimatedCardWrapper>
+
+      {/* Row 2 */}
+      <AnimatedCardWrapper className="lg:col-span-1">
+        <BentoTilt className="w-full pl-20 h-64 md:h-80 lg:h-full">
+          <BentoCard {...BentoCards[1]} />
+        </BentoTilt>
+      </AnimatedCardWrapper>
+      <div className="lg:col-span-2 grid grid-rows-2 gap-4">
+        <AnimatedCardWrapper>
+          <BentoTilt className="w-full pr-20 h-64 md:h-80 lg:h-100">
+            <BentoCard {...BentoCards[2]} />
+          </BentoTilt>
+        </AnimatedCardWrapper>
+        <AnimatedCardWrapper>
+          <BentoTilt className="w-full pl-20 h-64 md:h-80 lg:h-full">
+            <BentoCard {...BentoCards[3]} />
+          </BentoTilt>
+        </AnimatedCardWrapper>
+      </div>
+
+      {/* Row 3 */}
+      <AnimatedCardWrapper className="lg:col-span-2">
+        <BentoTilt className="w-full pr-20 h-64 md:h-80 lg:h-96">
+          <BentoCard {...BentoCards[4]} />
+        </BentoTilt>
+      </AnimatedCardWrapper>
+      <AnimatedCardWrapper className="lg:col-span-1">
+        <BentoTilt className="w-full h-64 md:h-80 lg:h-96">
+          <BentoCard {...BentoCards[5]} />
+        </BentoTilt>
+      </AnimatedCardWrapper>
     </div>
   );
 };

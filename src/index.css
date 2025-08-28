@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+
 @import "tailwindcss";
 
 html,
@@ -8,7 +13,7 @@ body {
     background-color: #0c0b1a;
     color: #ececec;
     scroll-behavior: smooth;
-    font-family: "Mona Sans", sans-serif;
+    font-family: "Manrope", sans-serif;
     overflow-x: hidden;
 }
 
@@ -23,7 +28,10 @@ section {
 
 
 
-    --font-zing: 'ZingRust', sans-serif;
+    --font-zing: "ZingRust", sans-serif;
+    --font-manrope: "Manrope", sans-serif;
+    --font-inter: 'Inter', sans-serif;
+    --font-nunito: 'Nunito', sans-serif;
 
     --text-herohead: 150px;
     --text-herohead--line-height: 115px;
@@ -40,9 +48,13 @@ section {
 
 /*box-shadow: offset-x offset-y blur-radius spread-radius color;*/
 .shadow-deck {
-    box-shadow: 0 -20px 630px -2px rgba(0, 0, 0, 0.3),
-                0 20px 0px 0px rgba(0, 0, 0, 0.0);
+    /* Top shadow: offsetY = -20px (above the element), blurRadius = 630px, spread = -2px, color = rgba(0,0,0,0.3) */
+    /* This is intended to create a shadow above the element. */
+    box-shadow: 0 -20px 120px rgba(0, 0, 0, 0.25),
 
+        /* Bottom shadow: offsetY = 20px (below the element), blurRadius = 0, spread = 0, color = fully transparent */
+        /* Essentially disables any shadow below the element. */
+    0 20px 0px 0px rgba(0, 0, 0, 0.0);
 }
 
 .floating-nav {
@@ -60,6 +72,28 @@ section {
     transform: translateY(200px);
 }
 
-* {
-    outline: 1px solid rgba(255, 0, 0, 0.3) !important;
+/** {*/
+/*    outline: 1px solid rgba(255, 0, 0, 0.3) !important;*/
+/*}*/
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 12px; /* width of vertical scrollbar */
+    height: 12px; /* height of horizontal scrollbar */
 }
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a; /* track background */
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(74, 13, 178, 0.85); /* thumb color */
+    border-radius: 8px;
+    border: 3px solid #1a1a1a; /* padding around thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(87, 19, 196, 0.85);
+}
+
