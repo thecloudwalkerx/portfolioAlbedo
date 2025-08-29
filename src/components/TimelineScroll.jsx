@@ -4,7 +4,10 @@ import { useEffect, useState, useRef } from "react";
 
 export default function TimelineScroll() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [rocketBlur, setRocketBlur] = useState(0);
   const targetProgress = useRef(0);
+  const targetBlur = useRef(0);
+  const lastScrollTop = useRef(window.scrollY);
   const rafId = useRef(null);
 
   useEffect(() => {
@@ -12,6 +15,13 @@ export default function TimelineScroll() {
       const scrollTop = window.scrollY;
       const docHeight = document.body.scrollHeight - window.innerHeight;
       targetProgress.current = (scrollTop / docHeight) * 100;
+
+      // calculate scroll speed
+      const speed = Math.abs(scrollTop - lastScrollTop.current);
+      lastScrollTop.current = scrollTop;
+
+      // map speed to blur (max 12px)
+      targetBlur.current = Math.min(speed / 5, 12);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -20,10 +30,12 @@ export default function TimelineScroll() {
 
   useEffect(() => {
     const animate = () => {
-      setScrollProgress((prev) => {
-        const delta = targetProgress.current - prev;
-        return prev + delta * 0.1;
-      });
+      // Smooth scroll progress
+      setScrollProgress((prev) => prev + (targetProgress.current - prev) * 0.1);
+
+      // Smooth blur animation
+      setRocketBlur((prev) => prev + (targetBlur.current - prev) * 0.1);
+
       rafId.current = requestAnimationFrame(animate);
     };
 
@@ -53,6 +65,7 @@ export default function TimelineScroll() {
               style={{
                 top: `${scrollProgress}%`,
                 transform: "translate(-50%, -50%)",
+                filter: `blur(${rocketBlur}px)`,
               }}
             />
           </>

@@ -7,7 +7,7 @@ import AboutMe from "./sections/AboutMe.jsx";
 import Skills from "./sections/Skills.jsx";
 import Loader from "./sections/Loader.jsx";
 import GalaxyParticles from "./backgrounds/GalaxyParticles.jsx";
-import TimelineScroll from "./components/TimelineScroll.jsx"; // new import
+import TimelineScroll from "./components/TimelineScroll.jsx";
 
 const App = () => {
   const [loaderFinished, setLoaderFinished] = useState(false);
@@ -69,9 +69,6 @@ const App = () => {
         randomness={true}
       />
 
-      {/* Timeline scrollbar */}
-      {loaderFinished && <TimelineScroll />}
-
       {/* Loader overlay */}
       {!loaderFinished && (
         <Loader
@@ -94,6 +91,9 @@ const App = () => {
           outlineColor="#121129"
         />
       )}
+
+      {/* Custom rocket scroll indicator */}
+      {loaderFinished && <TimelineScroll />}
 
       {/* Page content that will blur-reveal */}
       <div

@@ -25,7 +25,9 @@ const Navbar = ({
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isTop, setIsTop] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
 
+  // Determine visibility based on scroll
   useEffect(() => {
     setIsTop(currentScrollY < 50);
 
@@ -43,30 +45,47 @@ const Navbar = ({
     setLastScrollY(currentScrollY);
   }, [currentScrollY, lastScrollY]);
 
+  // Effective visibility combines scroll + hover
+  const effectiveNavVisible = isNavVisible || isHovered;
+
+  // GSAP animation including partial hide + peek-on-hover
   useEffect(() => {
     if (!navContainerRef.current) return;
 
     gsap.killTweensOf(navContainerRef.current);
+
+    // Leave ~40% of navbar visible when hidden for hover
+    const hiddenOffset = navContainerRef.current.offsetHeight * 0.4;
+    const targetY = effectiveNavVisible ? 0 : -hiddenOffset;
+    const targetOpacity = effectiveNavVisible
+      ? scrolledOpacity
+      : isHovered
+        ? scrolledOpacity * 0.4
+        : 0;
+
     gsap.to(navContainerRef.current, {
-      y: isNavVisible ? 0 : -navContainerRef.current.offsetHeight,
-      opacity: isNavVisible ? scrolledOpacity : 0,
-      duration: isNavVisible ? showDuration : hideDuration,
-      delay: isNavVisible ? showDelay : hideDelay,
+      y: targetY,
+      opacity: targetOpacity,
+      duration: effectiveNavVisible ? showDuration : hideDuration,
+      delay: effectiveNavVisible ? showDelay : hideDelay,
       ease: "power3.out",
       overwrite: "auto",
     });
   }, [
-    isNavVisible,
+    effectiveNavVisible,
     hideDuration,
     showDuration,
     hideDelay,
     showDelay,
     scrolledOpacity,
+    isHovered,
   ]);
 
   return (
     <div
       ref={navContainerRef}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className={clsx(
         "fixed inset-x-0 top-4 z-50 h-16 transition-all duration-500 sm:inset-x-6 rounded-xl flex items-center border-solid",
         backdrop,
@@ -113,7 +132,7 @@ const Navbar = ({
               height={14}
               animationSpeed={2}
               fadeDuration={500}
-              volume={0.5} // max volume 50%
+              volume={0.5}
             />
           </div>
         </nav>
