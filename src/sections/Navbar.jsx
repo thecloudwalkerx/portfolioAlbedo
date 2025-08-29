@@ -83,7 +83,7 @@ const Navbar = ({
         <nav className="flex w-full items-center justify-between p-4">
           {/* Logo + Product button */}
           <div className="flex items-center gap-7 font-nunito">
-            <img src="/albedo.ico" alt="logo" className="w-10" />
+            <img src="/src/public/albedo.ico" alt="logo" className="w-10" />
             <NavButton
               id="product-button"
               title="Hire Me!"

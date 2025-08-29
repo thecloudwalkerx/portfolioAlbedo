@@ -41,7 +41,7 @@ export default function AboutMe() {
         <DeckReveal
           baseDeckHeight={{ sm: 2, md: 2.5, lg: 2.8 }} // deck height per device
           baseScrollHeight={{ sm: 1.64, md: 1.72, lg: 2 }} // scroll section height
-          baseOffset={{ sm: 800, md: 900, lg: 800 }} // scroll travel per device
+          baseOffset={{ sm: 800, md: 900, lg: 1200 }} // scroll travel per device
           baseFixedOffset={{ sm: 450, md: -5, lg: 100 }} // visual start offset per device
           backgroundColor="#0c0b1a"
           rounded

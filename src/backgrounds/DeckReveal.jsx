@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import DeckGrain from "../backgrounds/DeckGrain.jsx";
 
 export default function DeckReveal({
   rounded = false,
@@ -45,14 +46,12 @@ export default function DeckReveal({
     offset: ["start end", "end start"],
   });
 
-  // Map scroll progress to a y-position
   const rawY = useTransform(
     scrollYProgress,
     [0, 1],
     [responsiveFixedOffset, responsiveFixedOffset - responsiveOffset],
   );
 
-  // Smooth spring for “drag-like” feel
   const y = useSpring(rawY, animationConfig);
 
   return (
@@ -74,8 +73,18 @@ export default function DeckReveal({
           zIndex: 30,
           willChange: "transform",
         }}
-        className="shadow-deck flex flex-col items-center justify-start"
+        className="shadow-deck flex flex-col items-center justify-start relative"
       >
+        {/* Grain covers full sticky deck */}
+        <DeckGrain
+          speed={0.4}
+          maxParticles={50}
+          opacity={0.5}
+          size={3}
+          blur={0.5}
+          color="#500ec0"
+          fadeHeight={100}
+        />
         {children}
       </motion.div>
     </section>

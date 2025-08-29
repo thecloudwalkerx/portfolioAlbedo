@@ -4,7 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
 
-
 @import "tailwindcss";
 
 html,
@@ -15,6 +14,15 @@ body {
     scroll-behavior: smooth;
     font-family: "Manrope", sans-serif;
     overflow-x: hidden;
+
+    /* Hide scrollbar while keeping scrolling */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
 }
 
 section {
@@ -25,8 +33,6 @@ section {
     --color-headline: #e4d8ff;
     --color-gray-900: #0c0b1a;
     --color-gray-800: #121129;
-
-
 
     --font-zing: "ZingRust", sans-serif;
     --font-manrope: "Manrope", sans-serif;
@@ -44,7 +50,6 @@ section {
     font-weight: 400;
     font-style: normal;
 }
-
 
 /*box-shadow: offset-x offset-y blur-radius spread-radius color;*/
 .shadow-deck {
@@ -76,24 +81,12 @@ section {
 /*    outline: 1px solid rgba(255, 0, 0, 0.3) !important;*/
 /*}*/
 
-/* Webkit browsers (Chrome, Safari, Edge) */
-::-webkit-scrollbar {
-    width: 12px; /* width of vertical scrollbar */
-    height: 12px; /* height of horizontal scrollbar */
+/* Sticky elements */
+.sticky {
+    position: sticky;
+    top: 0;
 }
 
-::-webkit-scrollbar-track {
-    background: #1a1a1a; /* track background */
-    border-radius: 8px;
+.h-screen {
+    height: 100vh;
 }
-
-::-webkit-scrollbar-thumb {
-    background: rgba(74, 13, 178, 0.85); /* thumb color */
-    border-radius: 8px;
-    border: 3px solid #1a1a1a; /* padding around thumb */
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(87, 19, 196, 0.85);
-}
-

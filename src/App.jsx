@@ -7,6 +7,7 @@ import AboutMe from "./sections/AboutMe.jsx";
 import Skills from "./sections/Skills.jsx";
 import Loader from "./sections/Loader.jsx";
 import GalaxyParticles from "./backgrounds/GalaxyParticles.jsx";
+import TimelineScroll from "./components/TimelineScroll.jsx"; // new import
 
 const App = () => {
   const [loaderFinished, setLoaderFinished] = useState(false);
@@ -67,6 +68,9 @@ const App = () => {
         attraction={0.65}
         randomness={true}
       />
+
+      {/* Timeline scrollbar */}
+      {loaderFinished && <TimelineScroll />}
 
       {/* Loader overlay */}
       {!loaderFinished && (

@@ -2,25 +2,28 @@
 
 import React from "react";
 import SwirlAnimation from "../animations/SwirlText.jsx";
-import BentoGrid from "../components/BentoGrid.jsx";
+import SwitchText from "../animations/SwitchText.jsx";
 
 export default function DeckContent() {
   return (
-    <section className="p-10 text-2xl flex flex-col gap-6 text-white font-zing">
-      {/* Animated text */}
-
+    <section className="relative lg:py-20 lg:px-50 text-2xl flex flex-col gap-6 font-zing">
       <SwirlAnimation
-        className="flex text-8xl flex-col gap-6"
-        text="This is animated across two lines"
-        duration={1.2}
-        stagger={0.05}
-        mode="word"
+        className="text-[f3f4e5] flex text-7xl flex-col gap-6"
+        text="TIMELINE OF ALBEDO"
+        duration={1.6}
+        stagger={0.8}
+        mode="line"
       />
 
-      {/* Bento grid */}
-      <div id="projects" className="mt-6 w-full">
-        <BentoGrid />
-      </div>
+      <SwitchText
+        text="ABOUT THE CLOUD"
+        slideDistance={120} // how far it slides in from the right
+        blurAmount={6} // initial blur in pixels
+        transitionDuration={0.8} // duration of animation
+        staggerDuration={0.05} // delay between characters
+        className="text-6xl font-zing text-headline"
+        slideDirection="left"
+      />
     </section>
   );
 }

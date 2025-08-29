@@ -1,9 +1,13 @@
+"use client";
 import React from "react";
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <div>Footer</div>
-    //implement here the zentry's last text
+    <section className="relative w-full h-screen bg-gradient-to-r overflow-hidden flex bg-black items-center justify-center">
+      {/* Foreground content */}
+      <h1 className="relative z-10 text-white text-9xl font-bold text-center">
+        THIS IS FOOTER SECTION!
+      </h1>
+    </section>
   );
-};
-export default Footer;
+}

@@ -83,12 +83,14 @@ export default function SwirlAnimation({
                   {char}
                 </span>
               ))
-            : line.split(" ").map((word, wordIdx) => (
+            : line.split(" ").map((word, wordIdx, arr) => (
                 <span
                   key={wordIdx}
                   className="swirl-word inline-block will-change-transform"
                 >
                   {word}
+                  {/* Add a non-breaking space after each word except the last */}
+                  {wordIdx !== arr.length - 1 && "\u00A0"}
                 </span>
               ))}
         </div>

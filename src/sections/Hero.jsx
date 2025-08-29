@@ -75,12 +75,11 @@ export default function Hero() {
           {/* Details + EyeButton below */}
           <div className="relative top-25 md:top-35 lg:top-0">
             <p className="relative font-nunito z-10 max-w-full lg:max-w-[70%] text-base sm:text-lg leading-relaxed mt-6">
-              Greetings, I am Albedo. I am an undergraduate computer science
-              student with a strong focus on cybersecurity and secure
-              communication systems. My academic journey has exposed me to
-              cryptography, steganography, and advanced computing concepts,
-              while my projects explore the intersection of design, engineering,
-              and security.
+              Greetings, I am Albedo, an undergraduate computer science student
+              focused on cybersecurity and secure communication. My studies
+              cover cryptography, steganography, and advanced computing, with
+              projects exploring the intersection of design, engineering, and
+              security.
             </p>
 
             <div className="relative z-10 mt-5">
