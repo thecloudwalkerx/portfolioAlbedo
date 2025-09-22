@@ -3,18 +3,24 @@ import Hero from "./sections/Hero.jsx";
 import Navbar from "./sections/Navbar.jsx";
 import Grain from "./backgrounds/Grain.jsx";
 import DarkVeil from "./backgrounds/DarkVeil.jsx";
-import AboutMe from "./sections/AboutMe.jsx";
-import Skills from "./sections/Skills.jsx";
 import Loader from "./sections/Loader.jsx";
 import GalaxyParticles from "./backgrounds/GalaxyParticles.jsx";
 import TimelineScroll from "./components/TimelineScroll.jsx";
+import SmoothScroller from "./components/SmoothScroller.jsx";
+import StackedSections from "./components/StackedSections.jsx";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Certifications from "./sections/Certifications.jsx";
+import Skills from "./sections/Skills.jsx";
+import Footer from "./sections/Footer.jsx";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
   const [loaderFinished, setLoaderFinished] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  // Simulate dynamic loading
   useEffect(() => {
     let currentProgress = 0;
     const interval = setInterval(() => {
@@ -26,7 +32,6 @@ const App = () => {
       }
       setProgress(currentProgress);
     }, 100);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -39,7 +44,6 @@ const App = () => {
 
   return (
     <main className="relative overflow-x-hidden">
-      {/* Background particles */}
       <GalaxyParticles
         className="fixed inset-0 w-full h-full z-0 pointer-events-none"
         particleCount={1500}
@@ -51,8 +55,6 @@ const App = () => {
         moveParticlesOnHover={true}
         particleHoverFactor={2}
       />
-
-      {/* Always visible visual effects */}
       <Grain
         speed={0.4}
         maxParticles={50}
@@ -62,14 +64,8 @@ const App = () => {
         color="#500ec0"
         fadeHeight={100}
       />
-      <DarkVeil
-        color="#500ec0"
-        speed={0.5}
-        attraction={0.65}
-        randomness={true}
-      />
+      <DarkVeil color="#500ec0" speed={0.5} attraction={0.65} randomness />
 
-      {/* Loader overlay */}
       {!loaderFinished && (
         <Loader
           progressValue={progress}
@@ -77,7 +73,6 @@ const App = () => {
         />
       )}
 
-      {/* Floating header, only after loader */}
       {loaderFinished && (
         <Navbar
           hideDuration={0.2}
@@ -92,25 +87,27 @@ const App = () => {
         />
       )}
 
-      {/* Custom rocket scroll indicator */}
       {loaderFinished && <TimelineScroll />}
 
-      {/* Page content that will blur-reveal */}
-      <div
-        className={`transition-opacity duration-1000 ease-out ${
-          showContent ? "opacity-100" : "opacity-0"
-        }`}
-        style={{
-          filter: showContent ? "blur(0px)" : "blur(20px)",
-          transition: "filter 1s ease-out, opacity 1s ease-out",
-          position: "relative",
-          zIndex: 0,
-        }}
-      >
-        <Hero />
-        <AboutMe />
-        <Skills />
+      <div id="smooth-wrapper" style={{ height: "100%", overflow: "hidden" }}>
+        <div
+          id="smooth-content"
+          className={`transition-opacity duration-1000 ease-out ${showContent ? "opacity-100" : "opacity-0"}`}
+          style={{
+            filter: showContent ? "blur(0px)" : "blur(20px)",
+            transition: "filter 1s ease-out, opacity 1s ease-out",
+            willChange: "transform",
+            minHeight: "100%",
+          }}
+        >
+          <Hero />
+          <StackedSections />
+          <Certifications />
+          <Footer />
+        </div>
       </div>
+
+      <SmoothScroller smooth={1} smoothTouch={0.1} effects />
     </main>
   );
 };

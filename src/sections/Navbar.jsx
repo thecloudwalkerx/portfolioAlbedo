@@ -128,11 +128,16 @@ const Navbar = ({
             {/* Integrated AudioButton */}
             <AudioButton
               audioSrc="/src/public/background_music.mp3"
-              bars={3}
-              height={14}
-              animationSpeed={2}
-              fadeDuration={500}
-              volume={0.5}
+              width={48}
+              height={24}
+              reactivity={10.35}
+              targetRMS={0.2}
+              // three smooth white lines with different opacities
+              lineColors={[
+                "rgba(255,255,255,1.0)", // main bright line
+                "rgba(255,255,255,0.70)", // mid-opacity
+                "rgba(255,255,255,0.45)", // faint accent
+              ]}
             />
           </div>
         </nav>

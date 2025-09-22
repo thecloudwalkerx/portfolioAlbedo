@@ -11,7 +11,7 @@ body {
     width: 100%;
     background-color: #0c0b1a;
     color: #ececec;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     font-family: "Manrope", sans-serif;
     overflow-x: hidden;
 
@@ -89,4 +89,25 @@ section {
 
 .h-screen {
     height: 100vh;
+}
+.panel {
+    height: 100vh;
+    width: 100%;
+}
+
+/* === GSAP ScrollSmoother required styles === */
+html, body {
+    height: 100%;
+    overflow-x: hidden; /* ensure no horizontal scroll */
+}
+
+#smooth-wrapper {
+    height: 100%;
+    overflow: hidden;          /* hides native scrollbars inside smoother */
+    position: relative;        /* base for fixed-position children */
+}
+
+#smooth-content {
+    will-change: transform;    /* GSAP moves this element */
+    min-height: 100%;          /* ensure full page height */
 }
