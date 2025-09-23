@@ -111,3 +111,5 @@ html, body {
     will-change: transform;    /* GSAP moves this element */
     min-height: 100%;          /* ensure full page height */
 }
+
+:root { --water-filter: none; }

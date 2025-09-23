@@ -11,7 +11,6 @@ import StackedSections from "./components/StackedSections.jsx";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Certifications from "./sections/Certifications.jsx";
-import Skills from "./sections/Skills.jsx";
 import Footer from "./sections/Footer.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
