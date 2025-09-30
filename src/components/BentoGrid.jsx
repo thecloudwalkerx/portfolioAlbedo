@@ -63,36 +63,45 @@ const AnimatedCardWrapper = ({ children, className = "" }) => {
 
 /* ------------------ BentoCard ------------------ */
 const BentoCard = ({ src, title, description }) => {
+  const isVideo = src?.endsWith(".mp4");
+
   return (
     <div className="relative w-full h-full rounded-md overflow-hidden group">
       {src ? (
-        <video
-          src={src}
-          loop
-          muted
-          autoPlay
-          className="absolute top-0 left-0 w-full h-full object-cover"
-        />
+        isVideo ? (
+          <video
+            src={src}
+            loop
+            muted
+            autoPlay
+            playsInline
+            className="absolute top-0 left-0 w-full h-full object-cover"
+          />
+        ) : (
+          <img
+            src={src}
+            alt={typeof title === "string" ? title : "Bento card image"}
+            className="absolute top-0 left-0 w-full h-full object-cover"
+          />
+        )
       ) : (
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-600 via-pink-500 to-red-400" />
       )}
 
+      {/* Overlay content */}
       <div className="relative z-10 flex flex-col justify-between w-full h-full p-5 text-blue-50">
         {(title || description) && (
           <div>
             {title && (
               <h1 className="bento-title special-font relative inline-flex overflow-hidden text-lg md:text-2xl font-bold">
-                {/* First title (goes up) */}
                 <span className="translate-y-0 skew-y-0 transition duration-500 group-hover:-translate-y-[120%] group-hover:skew-y-12">
                   {title}
                 </span>
-                {/* Second title (comes from down) */}
                 <span className="absolute translate-y-[130%] skew-y-12 transition duration-500 group-hover:translate-y-0 group-hover:skew-y-0">
                   {title}
                 </span>
               </h1>
             )}
-
             {description && (
               <p className="mt-3 max-w-full text-xs md:text-base">
                 {description}
@@ -112,44 +121,41 @@ const BentoCard = ({ src, title, description }) => {
 /* ------------------ BentoGrid ------------------ */
 const BentoGrid = () => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full">
-      {/* Row 1 */}
-      <AnimatedCardWrapper className="lg:col-span-3">
-        <BentoTilt className="w-full h-64 md:h-80 lg:h-96">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full px-20">
+      {/* Column 1 (Tall card, spans 2 rows) */}
+      <AnimatedCardWrapper className="lg:row-span-2">
+        <BentoTilt className="w-full h-64 sm:h-80 lg:h-[90vh]">
           <BentoCard {...BentoCards[0]} />
         </BentoTilt>
       </AnimatedCardWrapper>
 
-      {/* Row 2 */}
-      <AnimatedCardWrapper className="lg:col-span-1">
-        <BentoTilt className="w-full pl-20 h-64 md:h-80 lg:h-full">
-          <BentoCard {...BentoCards[1]} />
-        </BentoTilt>
-      </AnimatedCardWrapper>
-      <div className="lg:col-span-2 grid grid-rows-2 gap-4">
+      {/* Column 2 (two stacked) */}
+      <div className="flex flex-col gap-4">
         <AnimatedCardWrapper>
-          <BentoTilt className="w-full pr-20 h-64 md:h-80 lg:h-100">
-            <BentoCard {...BentoCards[2]} />
+          <BentoTilt className="w-full h-40 sm:h-56 lg:h-[43vh]">
+            <BentoCard {...BentoCards[1]} />
           </BentoTilt>
         </AnimatedCardWrapper>
         <AnimatedCardWrapper>
-          <BentoTilt className="w-full pl-20 h-64 md:h-80 lg:h-full">
-            <BentoCard {...BentoCards[3]} />
+          <BentoTilt className="w-full h-40 sm:h-56 lg:h-[43vh]">
+            <BentoCard {...BentoCards[2]} />
           </BentoTilt>
         </AnimatedCardWrapper>
       </div>
 
-      {/* Row 3 */}
-      <AnimatedCardWrapper className="lg:col-span-2">
-        <BentoTilt className="w-full pr-20 h-64 md:h-80 lg:h-96">
-          <BentoCard {...BentoCards[4]} />
-        </BentoTilt>
-      </AnimatedCardWrapper>
-      <AnimatedCardWrapper className="lg:col-span-1">
-        <BentoTilt className="w-full h-64 md:h-80 lg:h-96">
-          <BentoCard {...BentoCards[5]} />
-        </BentoTilt>
-      </AnimatedCardWrapper>
+      {/* Column 3 (two stacked) */}
+      <div className="flex flex-col gap-4">
+        <AnimatedCardWrapper>
+          <BentoTilt className="w-full h-40 sm:h-56 lg:h-[43vh]">
+            <BentoCard {...BentoCards[3]} />
+          </BentoTilt>
+        </AnimatedCardWrapper>
+        <AnimatedCardWrapper>
+          <BentoTilt className="w-full h-40 sm:h-56 lg:h-[43vh]">
+            <BentoCard {...BentoCards[4]} />
+          </BentoTilt>
+        </AnimatedCardWrapper>
+      </div>
     </div>
   );
 };

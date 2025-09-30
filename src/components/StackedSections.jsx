@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AboutMe from "../sections/AboutMe.jsx";
 import Skills from "../sections/Skills.jsx";
+import Portfolio from "../sections/Portfolio.jsx";
 
 if (!gsap.core.globals().ScrollTrigger) {
   gsap.registerPlugin(ScrollTrigger);
@@ -48,7 +49,7 @@ export default function StackedSections() {
         <AboutMe />
       </section>
       <section className="panel">
-        <Skills />
+        <Portfolio />
       </section>
     </div>
   );

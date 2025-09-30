@@ -12,6 +12,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Certifications from "./sections/Certifications.jsx";
 import Footer from "./sections/Footer.jsx";
+import Skills from "./sections/Skills.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -101,7 +102,7 @@ const App = () => {
         >
           <Hero />
           <StackedSections />
-          <Certifications />
+          <Skills />
           <Footer />
         </div>
       </div>
