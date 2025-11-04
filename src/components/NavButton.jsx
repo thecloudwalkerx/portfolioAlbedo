@@ -5,13 +5,13 @@ const NavButton = ({ id, title, rightIcon, leftIcon, containerClass }) => {
     <button
       id={id}
       className={clsx(
-        "group relative z-10 w-fit cursor-pointer overflow-hidden rounded-2xl bg-headline px-7 py-3 text-black",
+        "group relative z-10 w-fit cursor-pointer overflow-hidden rounded-2xl bg-headline px-5 py-2 text-black",
         containerClass,
       )}
     >
       {leftIcon}
 
-      <span className="relative inline-flex overflow-hidden font-nunito  text-xs uppercase">
+      <span className="relative inline-flex overflow-hidden font-nunito font-bold text-sm">
         <div className="translate-y-0 skew-y-0 transition duration-500 group-hover:translate-y-[-160%] group-hover:skew-y-12">
           {title}
         </div>

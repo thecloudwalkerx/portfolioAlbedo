@@ -48,23 +48,22 @@ const App = () => {
         className="fixed inset-0 w-full h-full z-0 pointer-events-none"
         particleCount={1500}
         particleSpread={25}
-        speed={0.2}
+        speed={0.1}
         particleBaseSize={120}
         sizeRandomness={1.5}
         particleColors={["#ffffff", "#ffeedd", "#99bbff", "#aaddff", "#ffccaa"]}
         moveParticlesOnHover={true}
         particleHoverFactor={2}
       />
-      <Grain
-        speed={0.4}
-        maxParticles={50}
-        opacity={0.5}
-        size={3}
-        blur={0.5}
-        color="#500ec0"
-        fadeHeight={100}
-      />
-      <DarkVeil color="#500ec0" speed={0.5} attraction={0.65} randomness />
+      {/*<Grain*/}
+      {/*  speed={0.4}*/}
+      {/*  maxParticles={50}*/}
+      {/*  opacity={0.5}*/}
+      {/*  size={2}*/}
+      {/*  blur={0.5}*/}
+      {/*  color="#500ec0"*/}
+      {/*  fadeHeight={100}*/}
+      {/*/>*/}
 
       {!loaderFinished && (
         <Loader
@@ -107,7 +106,7 @@ const App = () => {
         </div>
       </div>
 
-      <SmoothScroller smooth={1} smoothTouch={0.1} effects />
+      <SmoothScroller smooth={0.9} smoothTouch={0.1} effects />
     </main>
   );
 };

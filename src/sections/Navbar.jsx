@@ -14,9 +14,11 @@ const Navbar = ({
   showDuration = 0.3,
   hideDelay = 0,
   showDelay = 0,
-  topOpacity = 0,
-  scrolledOpacity = 0.8,
-  backdrop = "backdrop-blur-md",
+  topOpacity = 0.8,
+  scrolledOpacity = 0.9,
+  topBgHex = "#000000", // <-- top background hex
+  scrolledBgHex = "#121123", // <-- scrolled background hex
+  backdrop = "backdrop-blur-sm",
   outlineWidth = "1px",
   outlineColor = "white",
 }) => {
@@ -26,6 +28,16 @@ const Navbar = ({
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isTop, setIsTop] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+
+  // Convert hex to rgba string with opacity
+  const hexToRgba = (hex, opacity) => {
+    const cleanedHex = hex.replace("#", "");
+    const bigint = parseInt(cleanedHex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return `rgba(${r},${g},${b},${opacity})`;
+  };
 
   // Determine visibility based on scroll
   useEffect(() => {
@@ -54,7 +66,6 @@ const Navbar = ({
 
     gsap.killTweensOf(navContainerRef.current);
 
-    // Leave ~40% of navbar visible when hidden for hover
     const hiddenOffset = navContainerRef.current.offsetHeight * 0.4;
     const targetY = effectiveNavVisible ? 0 : -hiddenOffset;
     const targetOpacity = effectiveNavVisible
@@ -92,8 +103,8 @@ const Navbar = ({
       )}
       style={{
         backgroundColor: isTop
-          ? `rgba(0,0,0,${topOpacity})`
-          : `rgba(12, 11, 26,${scrolledOpacity})`,
+          ? hexToRgba(topBgHex, topOpacity)
+          : hexToRgba(scrolledBgHex, scrolledOpacity),
         borderWidth: outlineWidth,
         borderColor: outlineColor,
       }}
@@ -107,7 +118,7 @@ const Navbar = ({
               id="product-button"
               title="Hire Me!"
               rightIcon={<TiLocationArrow />}
-              containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1 font-nunito"
+              containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
             />
           </div>
 
@@ -125,18 +136,16 @@ const Navbar = ({
               ))}
             </div>
 
-            {/* Integrated AudioButton */}
             <AudioButton
               audioSrc="/src/public/background_music.mp3"
               width={48}
               height={24}
               reactivity={10.35}
               targetRMS={0.2}
-              // three smooth white lines with different opacities
               lineColors={[
-                "rgba(255,255,255,1.0)", // main bright line
-                "rgba(255,255,255,0.70)", // mid-opacity
-                "rgba(255,255,255,0.45)", // faint accent
+                "rgba(255,255,255,1.0)",
+                "rgba(255,255,255,0.70)",
+                "rgba(255,255,255,0.45)",
               ]}
             />
           </div>

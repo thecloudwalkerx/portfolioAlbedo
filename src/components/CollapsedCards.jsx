@@ -67,7 +67,8 @@ export default function CollapsedCards({
                     "linear-gradient(to right, rgba(12,11,26,0.8) 70%, rgba(12,11,26,0) 100%)",
                 }}
                 initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
+                // Remove hover effect
+                // whileHover={{ opacity: 1 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               />
 

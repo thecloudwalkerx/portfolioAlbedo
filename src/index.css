@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+@import url("https://db.onlinewebfonts.com/c/501b02c5c0e746e72b9f19f4a5dd9275?family=NeuronBlack");
 
 @import "tailwindcss";
 
@@ -36,8 +37,11 @@ section {
 
     --font-zing: "ZingRust", sans-serif;
     --font-manrope: "Manrope", sans-serif;
-    --font-inter: 'Inter', sans-serif;
-    --font-nunito: 'Nunito', sans-serif;
+    --font-inter: "Inter", sans-serif;
+    --font-nunito: "Nunito", sans-serif;
+    --font-neuron: "NeuronBlack", sans-serif;
+    --font-anton: "Anton", sans-serif;
+    --font-cunia: "Cunia", sans-serif;
 
     --text-herohead: 150px;
     --text-herohead--line-height: 115px;
@@ -47,6 +51,12 @@ section {
 @font-face {
     font-family: 'ZingRust';
     src: url('/src/public/fonts/zing_rust.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Cunia';
+    src: url('/src/public/fonts/cunia.ttf') format('opentype');
     font-weight: 400;
     font-style: normal;
 }

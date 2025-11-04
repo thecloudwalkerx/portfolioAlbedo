@@ -18,7 +18,7 @@ export const roles = [
 
 export const myItems = [
   {
-    title: "Web Developer",
+    title: "Full Stack Developer",
     description: "Pack Flyer Limited",
     src: "/src/public/icons/web_developer.png",
     ctaLink: "https://packflyer.com/",

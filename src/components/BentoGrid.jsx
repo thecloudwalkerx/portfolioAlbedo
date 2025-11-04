@@ -121,10 +121,10 @@ const BentoCard = ({ src, title, description }) => {
 /* ------------------ BentoGrid ------------------ */
 const BentoGrid = () => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full px-20">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full">
       {/* Column 1 (Tall card, spans 2 rows) */}
       <AnimatedCardWrapper className="lg:row-span-2">
-        <BentoTilt className="w-full h-64 sm:h-80 lg:h-[90vh]">
+        <BentoTilt className="w-full h-180">
           <BentoCard {...BentoCards[0]} />
         </BentoTilt>
       </AnimatedCardWrapper>
@@ -132,12 +132,12 @@ const BentoGrid = () => {
       {/* Column 2 (two stacked) */}
       <div className="flex flex-col gap-4">
         <AnimatedCardWrapper>
-          <BentoTilt className="w-full h-40 sm:h-56 lg:h-[43vh]">
+          <BentoTilt className="w-full h-80">
             <BentoCard {...BentoCards[1]} />
           </BentoTilt>
         </AnimatedCardWrapper>
         <AnimatedCardWrapper>
-          <BentoTilt className="w-full h-40 sm:h-56 lg:h-[43vh]">
+          <BentoTilt className="w-full h-40">
             <BentoCard {...BentoCards[2]} />
           </BentoTilt>
         </AnimatedCardWrapper>
@@ -146,12 +146,12 @@ const BentoGrid = () => {
       {/* Column 3 (two stacked) */}
       <div className="flex flex-col gap-4">
         <AnimatedCardWrapper>
-          <BentoTilt className="w-full h-40 sm:h-56 lg:h-[43vh]">
+          <BentoTilt className="w-full h-40">
             <BentoCard {...BentoCards[3]} />
           </BentoTilt>
         </AnimatedCardWrapper>
         <AnimatedCardWrapper>
-          <BentoTilt className="w-full h-40 sm:h-56 lg:h-[43vh]">
+          <BentoTilt className="w-full h-40">
             <BentoCard {...BentoCards[4]} />
           </BentoTilt>
         </AnimatedCardWrapper>

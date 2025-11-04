@@ -1,19 +1,17 @@
 import EyeButton from "/src/components/EyeButton.jsx";
 import RotatingText from "/src/animations/RotatingText.jsx";
-import SplitText from "/src/animations/SplitText.jsx";
 import LogoLoop from "/src/components/LogoLoop.jsx";
 import { heroLogos } from "../constant/index.jsx";
-import { roles } from "../constant/index.jsx";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import DarkVeil from "../backgrounds/DarkVeil.jsx";
 
 export default function Hero() {
   const eyeRef = useRef(null);
   const handleHeroButtonClick = () => console.log("Hero button clicked!");
-  const handleAnimationComplete = () =>
-    console.log("All letters have animated!");
 
+  //Fixer --> Eye Loader Bug
   useEffect(() => {
-    window.heroEye = eyeRef.current; // expose to loader
+    window.heroEye = eyeRef.current;
   }, []);
 
   return (
@@ -21,6 +19,16 @@ export default function Hero() {
       id="albedo"
       className="relative w-full min-h-screen text-headline overflow-hidden"
     >
+      <DarkVeil
+        color="#500ec0"
+        speed={0.5}
+        attraction={0.65}
+        randomness
+        className="-z-10"
+        fadeBottom={true} // enable fade
+        fadeAmount={0.1} // 20% bottom fade
+      />
+
       {/* Main content container */}
       <div className="w-full h-full flex flex-col lg:flex-row justify-between items-start lg:items-center pt-30 md:pt-35 lg:pt-50 px-10 sm:px-10 md:px-20 lg:px-30">
         <div className="flex-1 lg:flex-[0_0_55%] relative">
@@ -47,13 +55,13 @@ export default function Hero() {
             />
 
             <div className="relative z-10">
-              <h1 className="font-zing text-7xl sm:text-6xl md:text-8xl lg:text-9xl whitespace-nowrap">
+              <h1 className="font-anton text-7xl sm:text-6xl md:text-8xl lg:text-9xl whitespace-nowrap">
                 ALBEDO AND
               </h1>
 
               <h1
-                className="relative top-15 lg:top-0
-               md:left-10 lg:left-10 font-zing text-7xl sm:text-6xl md:text-8xl lg:text-9xl lg:flex lg:items-center md:flex md:items-center md:-mt-3 lg:-mt-5"
+                className="relative top-15 lg:top-3
+               md:left-10 lg:left-10 font-anton text-7xl sm:text-6xl md:text-8xl lg:text-9xl lg:flex lg:items-center md:flex md:items-center md:-mt-3 lg:-mt-5"
               >
                 THE
                 <RotatingText

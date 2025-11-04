@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Renderer, Program, Mesh, Triangle, Vec2 } from "ogl";
 
+// Vertex shader
 const vertex = `
 attribute vec2 position;
 void main() {
@@ -8,8 +9,8 @@ void main() {
 }
 `;
 
+// Fragment shader
 const fragment = `
-// your fragment shader remains the same
 precision highp float;
 
 uniform vec2 uResolution;
@@ -73,6 +74,9 @@ export default function DarkVeil({
   attraction = 0.6,
   randomness = true,
   blobGap = 0.3,
+  className = "",
+  fadeBottom = true,
+  fadeAmount = 0.2, // 0 (no fade) -> 1 (full fade)
 }) {
   const ref = useRef(null);
 
@@ -137,23 +141,22 @@ export default function DarkVeil({
     };
   }, [color, speed, attraction, randomness, blobGap]);
 
-  return (
-    //absolute to make it stay 1 page, fixed to all
-    <div
-      className="fixed inset-0 z-0 pointer-events-none overflow-hidden"
-      style={{
-        overflow: "hidden", // prevents x-axis scroll
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent, black 20%, black 80%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
-        WebkitMaskComposite: "destination-in",
-        maskImage:
-          "linear-gradient(to right, transparent, black 20%, black 80%, transparent), linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
-        maskComposite: "intersect",
-        WebkitMaskRepeat: "no-repeat",
-        WebkitMaskSize: "100% 100%",
+  // Bottom fade mask
+  const maskStyle = fadeBottom
+    ? {
+        maskImage: `linear-gradient(to top, transparent ${fadeAmount * 100}%, black 100%)`,
+        WebkitMaskImage: `linear-gradient(to top, transparent ${fadeAmount * 100}%, black 100%)`,
         maskRepeat: "no-repeat",
+        WebkitMaskRepeat: "no-repeat",
         maskSize: "100% 100%",
-      }}
+        WebkitMaskSize: "100% 100%",
+      }
+    : {};
+
+  return (
+    <div
+      className={`absolute inset-0 pointer-events-none ${className}`}
+      style={{ overflow: "hidden", ...maskStyle }}
     >
       <canvas
         ref={ref}

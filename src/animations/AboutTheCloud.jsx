@@ -91,7 +91,7 @@ export default function AboutTheCloud({
 
       {/* Animated fill text */}
       <motion.h1
-        className="absolute text-[90px] top-25 leading-20 md:top-0 md:left-20 left-8 sm:top-28 sm:left-60 text-2xl sm:text-4xl md:text-[90px] lg:text-8xl font-zing text-headline z-0 pointer-events-none"
+        className="absolute text-[90px] top-25 leading-20 md:top-0 md:left-20 left-8 sm:top-28 sm:left-60 text-2xl sm:text-4xl md:text-[90px] lg:text-8xl font-anton text-headline z-0 pointer-events-none"
         initial={{ x: fillX, opacity: fillOpacity }}
         animate={fillControls}
       >
@@ -105,7 +105,7 @@ export default function AboutTheCloud({
         animate={strokeControls}
       >
         <h1
-          className="text-[90px] leading-20 sm:text-4xl md:text-[90px] lg:text-8xl font-zing text-transparent"
+          className="text-[90px] leading-20 sm:text-4xl md:text-[90px] lg:text-8xl font-anton text-transparent"
           style={{ WebkitTextStroke: "0.5px #e4d8ff" }}
         >
           ABOUT THE CLOUD

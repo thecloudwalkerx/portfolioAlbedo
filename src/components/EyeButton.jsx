@@ -13,7 +13,7 @@ const EyeButton = ({
       type="button"
       onClick={onClick}
       className={clsx(
-        "group relative inline-flex max-w-max justify-center items-center h-[42px] text-base font-black uppercase overflow-hidden border-[1.5px] border-headline rounded-2xl px-6 pr-11 py-2 text-headline transition-all duration-700 ease-in-out active:scale-95 hover:scale-105",
+        "group relative inline-flex max-w-max justify-center items-center h-[42px] text-base font-black overflow-hidden border-[1.5px] border-headline rounded-2xl px-6 pr-11 py-2 text-headline transition-all duration-700 ease-in-out active:scale-95 hover:scale-105",
         className,
       )}
     >

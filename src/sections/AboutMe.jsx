@@ -36,18 +36,8 @@ export default function AboutMe() {
       ref={sectionRef}
       className="relative w-full min-h-screen flex flex-col justify-end text-headline overflow-visible"
     >
-      {/* 🔮 Centered Characteristics overlay */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-        <img
-          src="/src/public/characteristics.png"
-          alt="Characteristics overlay"
-          className="w-10/12 h-auto transition-opacity duration-300 floating"
-          style={{ opacity: visibleRatio }}
-        />
-      </div>
-
       {/* 🔲 Two-column layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full lg:px-16 relative z-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full px-30 relative z-10">
         {/* Left column: text + cards */}
         <div className="relative flex flex-col items-start justify-start w-full pr-4">
           <p className="font-nunito pb-8">
